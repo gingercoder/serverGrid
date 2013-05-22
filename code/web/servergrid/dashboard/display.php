@@ -20,7 +20,7 @@
                     <a href="/index.php" class="active">Home</a> <span class="divider">/</span>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a> <span class="divider">/</span>
+                    <a href="/index.php/servergrid/dashboard/overview/">Dashboard</a> <span class="divider">/</span>
                 </li>
                 <li class="active">
                     Server Display

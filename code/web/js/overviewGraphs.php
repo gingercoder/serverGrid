@@ -18,7 +18,9 @@
         <?php
         $serverList = $ObjSG->getServerList($ObjFramework->usernametoid($_SESSION['username']));
         $myuserid = $ObjSG->usernametoid($_SESSION['username']);
+
         foreach($serverList as $server){
+            $firstcount = 0;
             $serverStats = $ObjSG->getServerStats($myuserid, $server['serverid']);
             if($serverStats){
                 echo "
@@ -26,6 +28,7 @@
                     ['Time', 'CPU Load'],\n";
 
                         foreach($serverStats as $mystat){
+
                             $avload = explode(' ',$mystat['loadAverage']);
                             if($avload[0] == ""){
                                 $serverload = 0;
@@ -34,14 +37,18 @@
                                 $serverload = $avload[0];
                             }
                             $timecreated = substr($mystat['dateCreated'], -8, 5);
-                            echo "['".$timecreated."', ".$serverload."],\n";
+                            if($firstcount >= 1){
+                                echo ",\n";
+                            }
+                            $firstcount++;
+                            echo "['".$timecreated."', ".$serverload."]";
                         }
                     echo" ]);\n";
 
                 // Instantiate and draw our chart, passing in some options.
-                echo "var chart = new google.visualization.LineChart(document.getElementById('graph".$server['serverid']."'));\n";
+                echo "var chart".$server['serverid']." = new google.visualization.LineChart(document.getElementById('graph".$server['serverid']."'));\n";
 
-                echo "chart.draw(graph".$server['serverid'].", options);\n";
+                echo "chart".$server['serverid'].".draw(graph".$server['serverid'].", options);\n";
             }
         }
         ?>
