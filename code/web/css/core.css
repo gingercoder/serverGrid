@@ -1,0 +1,82 @@
+/* 
+* Core MicroFramework Stylesheet
+*
+*/
+
+root { 
+    display: block;
+}
+body{
+	background: #333;
+	color: #fff;
+}
+
+.serverGridHero{
+    background-image: url('/web/img/logo_300px_gray.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-color: #333;
+    color: #fff;
+}
+.centerinfo{
+    text-align: center;
+    border-bottom: 2px solid #336699;
+}
+.accordion-heading{
+    background: #336699;
+    color: #fff;
+    border: 2px solid #336699;
+}
+.accordion-heading a{
+    color: #fff;
+    text-decoration: none;
+}
+.accordion-heading a.visited{
+    color: #fff;
+    text-decoration: none;
+}
+.accordion-heading a:hover{
+    color: #fff;
+    text-decoration: underline;
+}
+
+.breadcrumb{
+    background: transparent;
+    color: #fff;
+}
+.breadcrumb a{
+    color: #fff;
+}
+.breadcrumb a.visited{
+    color: #fff;
+}
+.servercode{
+    display: block;
+    font-family: courier;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #999;
+    color: #333;
+}
+
+.updatediv{
+    border-bottom: 2px solid #336699;
+}
+.updatediv h3{
+    color: #df8505;
+}
+
+.graphbox{
+    border: 3px solid #0081c2;
+    padding: 5px;
+}
+
+footer{
+    display: block;
+    text-align:center;
+    color: #ccc;
+    font-size: 0.8em;
+    margin-top: 15px;
+    border-top: 2px solid #336699;
+    padding-top: 15px;
+}
