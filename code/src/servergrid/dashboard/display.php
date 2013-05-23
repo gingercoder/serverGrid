@@ -8,7 +8,6 @@ if($_SESSION['username'] !=""){
 
     // Get server stats
     $serverInfo = $ObjSG->getServerInfo($d);
-    $serverList = $ObjSG->getServerList($ObjFramework->usernametoid($_SESSION['username']));
 
     require_once('web/servergrid/dashboard/display.php');
 }

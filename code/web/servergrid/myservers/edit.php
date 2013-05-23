@@ -82,6 +82,7 @@
                         <option value="Slackware">Slackware</option>
                         <option value="Ubuntu">Ubuntu</option>
                         <option value="Linux">Linux (Other)</option>
+                        <option value="Windows">Windows</option>
                     </select>
                 </p>
                 <p>

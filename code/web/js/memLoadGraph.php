@@ -29,7 +29,7 @@
                             foreach($serverStats as $mystat){
                                     $mymemdirty = $mystat['freemem'];
                                     $mymem = preg_replace('!\s+!', ' ', $mymemdirty);
-    
+
                                     $freemem = explode(' ',$mymem);
 
                                     if($freemem[1] == ""){
