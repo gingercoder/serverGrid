@@ -74,7 +74,15 @@ CREATE TABLE IF NOT EXISTS `framework_settings` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
-
+INSERT INTO `framework_settings` (`settingName`, `settingValue`) VALUES
+('appTitle', 'ServerGrid'),
+('appDescription', 'Remote Server Information'),
+('footerInfo', 'ServerGrid built by PizzaBoxSoftware'),
+('outputType', 'php'),
+('passwordSeed', '2d5377a9e28871fefc8c5ee77e06f818'),
+('firewall', 'off'),
+('emailSentFrom', 'servergrid@pizzaboxsoftware.co.uk'),
+('emailFooter', 'Automatically generated email from ServerGrid inteded for recipient only');
 --
 -- Table structure for table `logs`
 --
