@@ -170,18 +170,22 @@ class serverGrid extends MicroFramework{
     {
         $serverinfo = getServerInfo($serverid);
 
-		if($serverinfo['serverOS'] == "Windows")
-		{
-			return createWindowsServerCode($serverid, $frequency);
-		}
-		
+        if($serverinfo['serverOS'] == "Windows")
+        {
+            return createWindowsServerCode($serverid, $frequency);
+        }
+
         $mylocations = $this->fileLocations($serverinfo['serverOS']);
-		return createUnixCode($serverinfo, $mylocations, $frequency);
+        return createUnixServerCode($serverinfo, $mylocations, $frequency);
     }
-	
-	public function createUnixServerCode($serverinfo, $mylocations, $frequency)
-	{
-	    $servercode = "<h3>serverGrid.php</h3><br/>&lt;?php<br/>
+
+    /*
+     * Function to create Unix Server Code
+     *
+     */
+    public function createUnixServerCode($serverinfo, $mylocations, $frequency)
+    {
+        $servercode = "<h3>serverGrid.php</h3><br/>&lt;?php<br/>
                         /* <br/>
                         * Filename: serverGrid.php<br/>
                         * Description:<br/>
@@ -236,19 +240,23 @@ class serverGrid extends MicroFramework{
                         0 * * * * /usr/bin/php serverGrid.php<br/>";
         }
         return $servercode;
-	}
-	
-	public function createWindowsServerCode($serverinfo, $frequency)
-	{
-		$servercode = " 
+    }
+
+    /*
+     * Function to create windows powershell code
+     *
+     */
+    public function createWindowsServerCode($serverinfo, $frequency)
+    {
+        $servercode = "
 		&dollar;at = Get-Date
 		&dollar;duration = [TimeSpan]::MaxValue
 		&dollar;interval = New-TimeSpan -minutes ".$frequency."
 		&dollar;trigger = New-JobTrigger -Once -At $at -RepetitionDuration $duration -RepetitionInterval $interval
 
 		Unregister-ScheduledJob -Name ServerGrid -Force
-		Register-ScheduledJob -Name ServerGrid -Trigger $trigger -ScriptBlock { 
-		
+		Register-ScheduledJob -Name ServerGrid -Trigger $trigger -ScriptBlock {
+
 		&dollar;url = 'http://".$_SERVER['SERVER_ADDR']."/api/updateMyGrid/'
 						&dollar;os = Get-WmiObject Win32_OperatingSystem
 						&dollar;myIdent = '".$serverinfo['serverIdent']."'
@@ -264,21 +272,10 @@ class serverGrid extends MicroFramework{
 						&dollar;body = 'ident='+&dollar;myIdent+'&serverid='+&dollar;serverId+'&userid='+&dollar;userId+'&memfree=MemFree: '+&dollar;memfree+' kB&hostname='+&dollar;hostname+'&version='+&dollar;version+'&uptime='+&dollar;uptime+'&loadavg='+('{0:N2}' -f &dollar;loadavg)+' 0.00 0.00 0/0 0'
 
 						&dollar;uri = New-Object System.Uri(&dollar;url)
-						Invoke-WebRequest -Uri &dollar;uri.AbsoluteUri -Method Post -Body &dollar;body 
+						Invoke-WebRequest -Uri &dollar;uri.AbsoluteUri -Method Post -Body &dollar;body
 		}";
-		return $servercode;
-	}
-	
-	public function getServerInfo($serverid)
-	{
-		$sql = "SELECT
-                    *
-                FROM
-                    client_servers
-                WHERE
-                    serverid='".db::escapechars($serverid)."'";
-        return db::returnrow($sql);
-	}
+        return $servercode;
+    }
 
     /*
      * Function to work out the file locations for files to call
