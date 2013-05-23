@@ -65,7 +65,7 @@
             <h2>Memory Free - last 24 hours</h2>
             <?php
                 echo "<p><div class=\"graphbox\">
-                <div id=\"memory".$serverInfo['serverid']."\"></div>
+                <div id=\"graphmem".$serverInfo['serverid']."\"></div>
                 </div></p>";
             ?>
         </div>

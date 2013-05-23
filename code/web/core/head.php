@@ -31,7 +31,7 @@
             echo "<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>";
 
              require_once('web/js/overviewGraphs.php');
-
+             require_once('web/js/memLoadGraph.php');
         }
         ?>
 

@@ -1,54 +1,53 @@
 <script type="text/javascript">
 
-    // Load the Visualization API and the piechart package.
-    google.load('visualization', '1.0', {'packages':['corechart']});
 
     // Set a callback to run when the Google Visualization API is loaded.
-    google.setOnLoadCallback(drawChart);
+    google.setOnLoadCallback(drawMemChart);
 
     // Callback that creates and populates a data table,
     // instantiates the pie chart, passes in the data and
     // draws it.
-    function drawChart() {
+    function drawMemChart() {
 
         // Set chart options
-        var options = {title: 'Server Load'};
+        var options = {title: 'Memory Usage'};
 
         // Create the data tables.
         <?php
-        $myuserid = $ObjFramework->usernametoid($_SESSION['username']);
-        $serverList = $ObjSG->getServerList($myuserid);
+        $serverList = $ObjSG->getServerList($ObjFramework->usernametoid($_SESSION['username']));
+        $myuserid = $ObjSG->usernametoid($_SESSION['username']);
 
         foreach($serverList as $server){
             $firstcount = 0;
             $serverStats = $ObjSG->getServerStats($myuserid, $server['serverid']);
             if($serverStats){
                 echo "
-                    var graph".$server['serverid']." = google.visualization.arrayToDataTable([\n
-                    ['Time', 'CPU Load'],\n";
+                    var graphmem".$server['serverid']." = google.visualization.arrayToDataTable([\n
+                    ['Time', 'Free Mem'],\n";
 
                         foreach($serverStats as $mystat){
 
-                            $avload = explode(' ',$mystat['loadAverage']);
-                            if($avload[0] == ""){
-                                $serverload = 0;
+                            $freemem = explode(' ',$mystat['freemem']);
+
+                            if($freemem[6] == ""){
+                                $memfree = 0;
                             }
                             else{
-                                $serverload = $avload[0];
+                                $memfree = $freemem[6];
                             }
                             $timecreated = substr($mystat['dateCreated'], -8, 5);
                             if($firstcount >= 1){
                                 echo ",\n";
                             }
                             $firstcount++;
-                            echo "['".$timecreated."', ".$serverload."]";
+                            echo "['".$timecreated."', ".$memfree."]";
                         }
                     echo" ]);\n";
 
                 // Instantiate and draw our chart, passing in some options.
-                echo "var chart".$server['serverid']." = new google.visualization.LineChart(document.getElementById('graph".$server['serverid']."'));\n";
+                echo "var chartmem".$server['serverid']." = new google.visualization.LineChart(document.getElementById('graphmem".$server['serverid']."'));\n";
 
-                echo "chart".$server['serverid'].".draw(graph".$server['serverid'].", options);\n";
+                echo "chartmem".$server['serverid'].".draw(graphmem".$server['serverid'].", options);\n";
             }
         }
         ?>
