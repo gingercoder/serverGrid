@@ -168,87 +168,117 @@ class serverGrid extends MicroFramework{
      */
     public function createServerCode($serverid, $frequency)
     {
-        $sql = "SELECT
+        $serverinfo = getServerInfo($serverid);
+
+		if($serverinfo['serverOS'] == "Windows")
+		{
+			return createWindowsServerCode($serverid, $frequency);
+		}
+		
+        $mylocations = $this->fileLocations($serverinfo['serverOS']);
+		return createUnixCode($serverinfo, $mylocations, $frequency);
+    }
+	
+	public function createUnixServerCode($serverinfo, $mylocations, $frequency)
+	{
+	    $servercode = "<h3>serverGrid.php</h3><br/>&lt;?php<br/>
+                        /* <br/>
+                        * Filename: serverGrid.php<br/>
+                        * Description:<br/>
+                        * ServerGrid<br/>
+                        * Developed by PizzaBoxSoftware.co.uk<br/>
+                        * Non-invasive data capture file v1.0.1<br/>
+                        */<br/>
+                        &dollar;myIdent = \"".$serverinfo['serverIdent']."\";<br/>
+                        &dollar;serverid = \"".$serverinfo['serverid']."\";<br/>
+                        &dollar;userid = \"".$this->usernametoid($_SESSION['username'])."\";<br/>
+                        ";
+
+        $servercode .= "&dollar;memfree =shell_exec('".$mylocations['memory']."');<br/>";
+        $servercode .= "&dollar;hostname =shell_exec('".$mylocations['hostname']."');<br/>";
+        $servercode .= "&dollar;version =shell_exec('".$mylocations['version']."');<br/>";
+        $servercode .= "&dollar;uptime =shell_exec('".$mylocations['uptime']."');<br/>";
+        $servercode .= "&dollar;loadavg =shell_exec('".$mylocations['loadavg']."');<br/>";
+
+        $servercode .="
+                        &dollar;url = 'http://".$_SERVER['SERVER_ADDR']."/api/updateMyGrid/';<br/>
+                        &dollar;fields = array(<br/>
+                                                'memfree' => urlencode(&dollar;memfree),<br/>
+                                                'hostname' => urlencode(&dollar;hostname),<br/>
+                                                'version' => urlencode(&dollar;version),<br/>
+                                                'uptime' => urlencode(&dollar;uptime),<br/>
+                                                'loadavg' => urlencode(&dollar;loadavg),<br/>
+                                                'ident' => urlencode(&dollar;myIdent),<br/>
+                                                'serverid' => urlencode(&dollar;serverid),<br/>
+                                                'userid' => urlencode(&dollar;userid)<br/>
+                                        );<br/>
+
+                        &dollar;fields_string = '';<br/>
+                        foreach(&dollar;fields as &dollar;key=>&dollar;value) { &dollar;fields_string .= &dollar;key.'='.&dollar;value.'&'; }<br/>
+                        rtrim(&dollar;fields_string, '&');<br/>
+                        &dollar;ch = curl_init();<br/>
+                        curl_setopt(&dollar;ch,CURLOPT_URL, &dollar;url);<br/>
+                        curl_setopt(&dollar;ch,CURLOPT_POSTFIELDS,&dollar;fields_string);<br/>
+                        &dollar;result = curl_exec(&dollar;ch);<br/>
+                        curl_close(&dollar;ch);<br/>
+                        ";
+        $servercode .= "?&gt;<br/><br/><br/>";
+
+        // Create the cron job code:
+        // Frequency used to determine
+        $frequency = db::escapechars($frequency);
+        if($frequency < 60){
+            $servercode .= "<h3>Cron Entry</h3><br/><br/>
+                        */".$frequency." * * * * /usr/bin/php serverGrid.php<br/>";
+        }
+        else{
+            $servercode .= "<h3>Cron Entry</h3><br/><br/>
+                        0 * * * * /usr/bin/php serverGrid.php<br/>";
+        }
+        return $servercode;
+	}
+	
+	public function createWindowsServerCode($serverinfo, $frequency)
+	{
+		$servercode = " 
+		&dollar;at = Get-Date
+		&dollar;duration = [TimeSpan]::MaxValue
+		&dollar;interval = New-TimeSpan -minutes ".$frequency."
+		&dollar;trigger = New-JobTrigger -Once -At $at -RepetitionDuration $duration -RepetitionInterval $interval
+
+		Unregister-ScheduledJob -Name ServerGrid -Force
+		Register-ScheduledJob -Name ServerGrid -Trigger $trigger -ScriptBlock { 
+		
+		&dollar;url = 'http://".$_SERVER['SERVER_ADDR']."/api/updateMyGrid/'
+						&dollar;os = Get-WmiObject Win32_OperatingSystem
+						&dollar;myIdent = '".$serverinfo['serverIdent']."'
+						&dollar;serverId = '".$serverinfo['serverid']."'
+						&dollar;userId = '".$this->usernametoid($_SESSION['username'])."'
+						&dollar;memfree = &dollar;os.FreePhysicalMemory
+						&dollar;hostname = hostname
+						&dollar;version = &dollar;os.Version
+						&dollar;uptime = ((Get-Date) - [System.Management.ManagementDateTimeconverter]::ToDateTime(&dollar;os.LastBootUpTime)).TotalSeconds
+						&dollar;proc =get-counter -Counter '\Processor(_Total)\% Processor Time' -SampleInterval 1 -MaxSamples 1
+						&dollar;loadavg =((&dollar;proc.readings -split ':')[-1])/100
+
+						&dollar;body = 'ident='+&dollar;myIdent+'&serverid='+&dollar;serverId+'&userid='+&dollar;userId+'&memfree=MemFree: '+&dollar;memfree+' kB&hostname='+&dollar;hostname+'&version='+&dollar;version+'&uptime='+&dollar;uptime+'&loadavg='+('{0:N2}' -f &dollar;loadavg)+' 0.00 0.00 0/0 0'
+
+						&dollar;uri = New-Object System.Uri(&dollar;url)
+						Invoke-WebRequest -Uri &dollar;uri.AbsoluteUri -Method Post -Body &dollar;body 
+		}";
+		return $servercode;
+	}
+	
+	public function getServerInfo($serverid)
+	{
+		$sql = "SELECT
                     *
                 FROM
                     client_servers
                 WHERE
                     serverid='".db::escapechars($serverid)."'";
-        $serverinfo = db::returnrow($sql);
-
-        $mylocations = $this->fileLocations($serverinfo['serverOS']);
-
-        if($serverinfo['serverOS'] !="Windows"){
-            $servercode = "<h3>serverGrid.php</h3><br/>&lt;?php<br/>
-                            /* <br/>
-                            * Filename: serverGrid.php<br/>
-                            * Description:<br/>
-                            * ServerGrid<br/>
-                            * Developed by PizzaBoxSoftware.co.uk<br/>
-                            * Non-invasive data capture file v1.0.1<br/>
-                            */<br/>
-                            &dollar;myIdent = \"".$serverinfo['serverIdent']."\";<br/>
-                            &dollar;serverid = \"".$serverinfo['serverid']."\";<br/>
-                            &dollar;userid = \"".$this->usernametoid($_SESSION['username'])."\";<br/>
-                            ";
-
-            $servercode .= "&dollar;memfree =shell_exec('".$mylocations['memory']."');<br/>";
-            $servercode .= "&dollar;hostname =shell_exec('".$mylocations['hostname']."');<br/>";
-            $servercode .= "&dollar;version =shell_exec('".$mylocations['version']."');<br/>";
-            $servercode .= "&dollar;uptime =shell_exec('".$mylocations['uptime']."');<br/>";
-            $servercode .= "&dollar;loadavg =shell_exec('".$mylocations['loadavg']."');<br/>";
-
-            $servercode .="
-                            &dollar;url = 'http://".$_SERVER['SERVER_ADDR']."/api/updateMyGrid/';<br/>
-                            &dollar;fields = array(<br/>
-                                                    'memfree' => urlencode(&dollar;memfree),<br/>
-                                                    'hostname' => urlencode(&dollar;hostname),<br/>
-                                                    'version' => urlencode(&dollar;version),<br/>
-                                                    'uptime' => urlencode(&dollar;uptime),<br/>
-                                                    'loadavg' => urlencode(&dollar;loadavg),<br/>
-                                                    'ident' => urlencode(&dollar;myIdent),<br/>
-                                                    'serverid' => urlencode(&dollar;serverid),<br/>
-                                                    'userid' => urlencode(&dollar;userid)<br/>
-                                            );<br/>
-
-                            &dollar;fields_string = '';<br/>
-                            foreach(&dollar;fields as &dollar;key=>&dollar;value) { &dollar;fields_string .= &dollar;key.'='.&dollar;value.'&'; }<br/>
-                            rtrim(&dollar;fields_string, '&');<br/>
-                            &dollar;ch = curl_init();<br/>
-                            curl_setopt(&dollar;ch,CURLOPT_URL, &dollar;url);<br/>
-                            curl_setopt(&dollar;ch,CURLOPT_POSTFIELDS,&dollar;fields_string);<br/>
-                            &dollar;result = curl_exec(&dollar;ch);<br/>
-                            curl_close(&dollar;ch);<br/>
-                            ";
-            $servercode .= "?&gt;<br/><br/><br/>";
-
-            // Create the cron job code:
-            // Frequency used to determine
-            $frequency = db::escapechars($frequency);
-            if($frequency < 60){
-                $servercode .= "<h3>Cron Entry</h3><br/><br/>
-                            */".$frequency." * * * * /usr/bin/php serverGrid.php<br/>";
-            }
-            else{
-                $servercode .= "<h3>Cron Entry</h3><br/><br/>
-                            0 * * * * /usr/bin/php serverGrid.php<br/>";
-            }
-        }
-        else{
-            $servercode = "<h3>Windows Server Setup</h3><p>To set up using a Windows server you will have to use a Windows integration bolt-on. You will require the following
-                            settings for your API call:</p>
-                            <p>
-                            ident = ".$serverinfo['serverIdent']."<br/>
-                            serverid = ".$serverinfo['serverid']."<br/>
-                            userid = ".$this->usernametoid($_SESSION['username'])."<br/>
-                            hostname = YOUR_HOSTNAME<br/>
-                            version = YOUR_KERNEL_VERSION<br/>
-                            uptime = UPTIME_IN_SECONDS<br/>
-                            loadavg = LOAD_AVERAGE (Unix Format or single figure as a decimal e.g. 1.0)<br/>
-                            memfree = MEMORY_FREE (Unix Format)</p>";
-        }
-        return $servercode;
-    }
+        return db::returnrow($sql);
+	}
 
     /*
      * Function to work out the file locations for files to call
