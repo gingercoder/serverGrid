@@ -172,11 +172,12 @@ class serverGrid extends MicroFramework{
 
         if($serverinfo['serverOS'] == "Windows")
         {
-            return createWindowsServerCode($serverid, $frequency);
+            return $this->createWindowsServerCode($serverid, $frequency);
+
         }
 
         $mylocations = $this->fileLocations($serverinfo['serverOS']);
-        return createUnixServerCode($serverinfo, $mylocations, $frequency);
+        return $this->createUnixServerCode($serverinfo, $mylocations, $frequency);
     }
 
     /*
