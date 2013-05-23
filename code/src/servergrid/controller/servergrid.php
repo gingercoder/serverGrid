@@ -249,7 +249,7 @@ class serverGrid extends MicroFramework{
      */
     public function createWindowsServerCode($serverinfo, $frequency)
     {
-        $servercode = "
+        $servercode = "<h3>Windows Powershell Code</h3><br/>
 		&dollar;at = Get-Date
 		&dollar;duration = [TimeSpan]::MaxValue
 		&dollar;interval = New-TimeSpan -minutes ".$frequency."
