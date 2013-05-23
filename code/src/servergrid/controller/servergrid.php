@@ -168,7 +168,7 @@ class serverGrid extends MicroFramework{
      */
     public function createServerCode($serverid, $frequency)
     {
-        $serverinfo = getServerInfo($serverid);
+        $serverinfo = $this->getServerInfo($serverid);
 
         if($serverinfo['serverOS'] == "Windows")
         {
