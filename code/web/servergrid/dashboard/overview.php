@@ -71,7 +71,7 @@
                     echo "<p><div class=\"graphbox\">
                             <h4>".$server['serverName']."</h4>
                             <a href=\"/index.php/servergrid/dashboard/display/".$server['serverid']."/\" class=\"btn btn-primary\">Full Status</a>
-                            <div id=\"graph".$server['serverid']."\"></div>
+                            <div id=\"graph".$server['serverid']."\"><div class=\"placeholder\"><img src=\"/web/img/serverGridStackAnimationSmall.gif\" alt=\"loading...\" title=\"loading...\" /></div></div>
                             </div></p>";
                 }
                 ?>

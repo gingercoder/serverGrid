@@ -69,6 +69,9 @@ body{
 .graphbox{
     border: 3px solid #0081c2;
     padding: 5px;
+    display: block;
+    height: auto;
+    width: auto;
 }
 
 footer{
@@ -79,4 +82,10 @@ footer{
     margin-top: 15px;
     border-top: 2px solid #336699;
     padding-top: 15px;
+}
+.placeholder{
+    display: block;
+    height: 200px;
+    width: auto;
+    text-align: center;
 }

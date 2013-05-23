@@ -59,13 +59,13 @@
             <?php
 
             echo "<p><div class=\"graphbox\">
-                  <div id=\"graph".$serverInfo['serverid']."\"></div>
+                  <div id=\"graph".$serverInfo['serverid']."\"><div class=\"preload\"><div class=\"placeholder\"><img src=\"/web/img/serverGridStackAnimationSmall.gif\" alt=\"loading...\" title=\"loading...\" /></div></div></div>
                   </div></p>";
             ?>
             <h2>Memory Free - last 24 hours</h2>
             <?php
                 echo "<p><div class=\"graphbox\">
-                <div id=\"graphmem".$serverInfo['serverid']."\"></div>
+                <div id=\"graphmem".$serverInfo['serverid']."\"><div class=\"preload\"><div class=\"placeholder\"><img src=\"/web/img/serverGridStackAnimationSmall.gif\" alt=\"loading...\" title=\"loading...\" /></div></div></div>
                 </div></p>";
             ?>
         </div>
