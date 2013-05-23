@@ -18,7 +18,7 @@
         <link href="/web/css/bootstrap.css" rel="stylesheet">
         <link href="/web/css/bootstrap-responsive.css" rel="stylesheet">
         <link href="/web/css/core.css" rel="stylesheet">
-        
+        <link rel="icon" type="image/ico" href="/web/img/favicon.ico">
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

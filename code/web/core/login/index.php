@@ -20,7 +20,8 @@
 </div>
 <div class="row-fluid">
     <div class="span3"></div>
-    <div class="span6">
+    <div class="span1"><img src="/web/img/serverGridStack.png" alt="ServerGrid Icon" /></div>
+    <div class="span5">
       <form class="form-signin" action="/index.php" method="post">
         <h2 class="form-signin-heading">Log In</h2>
         <input type="text" class="input-block-level" placeholder="Username" name="uname">
