@@ -18,36 +18,40 @@
         $myuserid = $ObjSG->usernametoid($_SESSION['username']);
 
         foreach($serverList as $server){
-            $firstcount = 0;
-            $serverStats = $ObjSG->getServerStats($myuserid, $server['serverid']);
-            if($serverStats){
-                echo "
-                    var graphmem".$server['serverid']." = google.visualization.arrayToDataTable([\n
-                    ['Time', 'Free Mem'],\n";
+            if(($limitToServer == false)||($limitToServer == $server['serverid'])){
+                $firstcount = 0;
+                $serverStats = $ObjSG->getServerStats($myuserid, $server['serverid']);
+                if($serverStats){
+                    echo "
+                        var graphmem".$server['serverid']." = google.visualization.arrayToDataTable([\n
+                        ['Time', 'Free Mem'],\n";
 
-                        foreach($serverStats as $mystat){
+                            foreach($serverStats as $mystat){
+                                    $mymemdirty = $mystat['freemem'];
+                                    $mymem = preg_replace('!\s+!', ' ', $mymemdirty);
+    
+                                    $freemem = explode(' ',$mymem);
 
-                            $freemem = explode(' ',$mystat['freemem']);
-
-                            if($freemem[6] == ""){
-                                $memfree = 0;
+                                    if($freemem[1] == ""){
+                                        $memfree = 0;
+                                    }
+                                    else{
+                                        $memfree = $freemem[1];
+                                    }
+                                    $timecreated = substr($mystat['dateCreated'], -8, 5);
+                                    if($firstcount >= 1){
+                                        echo ",\n";
+                                    }
+                                    $firstcount++;
+                                    echo "['".$timecreated."', ".$memfree."]";
                             }
-                            else{
-                                $memfree = $freemem[6];
-                            }
-                            $timecreated = substr($mystat['dateCreated'], -8, 5);
-                            if($firstcount >= 1){
-                                echo ",\n";
-                            }
-                            $firstcount++;
-                            echo "['".$timecreated."', ".$memfree."]";
-                        }
-                    echo" ]);\n";
+                        echo" ]);\n";
 
-                // Instantiate and draw our chart, passing in some options.
-                echo "var chartmem".$server['serverid']." = new google.visualization.LineChart(document.getElementById('graphmem".$server['serverid']."'));\n";
+                    // Instantiate and draw our chart, passing in some options.
+                    echo "var chartmem".$server['serverid']." = new google.visualization.LineChart(document.getElementById('graphmem".$server['serverid']."'));\n";
 
-                echo "chartmem".$server['serverid'].".draw(graphmem".$server['serverid'].", options);\n";
+                    echo "chartmem".$server['serverid'].".draw(graphmem".$server['serverid'].", options);\n";
+                }
             }
         }
         ?>

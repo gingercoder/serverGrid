@@ -29,7 +29,12 @@
 
         if($b == "dashboard"){
             echo "<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>";
-
+            if($d !=""){
+                $limitToServer = db::escapechars($d);
+            }
+            else{
+                $limitToServer = false;
+            }
              require_once('web/js/overviewGraphs.php');
              require_once('web/js/memLoadGraph.php');
         }
