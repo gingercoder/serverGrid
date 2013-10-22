@@ -10,25 +10,26 @@
  * Y88b  d88P Y8b.     888      Y8bd8P  Y8b.     888     Y88b  d88P 888     888 Y88b 888 
  *  "Y8888P"   "Y8888  888       Y88P    "Y8888  888      "Y8888P88 888     888  "Y88888          
  *                                      Remote Server Statistics and Reporting mechanism
- * Version:     1.0.1
- * Author:      Rick Trotter <rick@pizzaboxsoftware.co.uk>
+ * Version:     1.1.0
+ * Author:      Rick Trotter <rick@gingercoder.com>
  * Description:
  *              ServerGrid is a client and server technology allowing the remote monitoring
  *              of your server fleet. It provides a statistical overview of the state of
  *              your servers past and present.
  * 
- * License:     GNU GPLv3
- * Published:   May 2013
+ * License:         GNU GPLv3
+ * Published:       May 2013
+ * This Release:    October 2013
  */
         
         // Error Reporting Mode
             error_reporting(0);
-	       ini_set('display_errors', 'Off');
+            ini_set('display_errors', 'Off');
 
         // Create the Session and control page request information
-	       session_start();
-	       header("Cache-Control: ");
-	       header("pragma: ");
+	    session_start();
+	    header("Cache-Control: ");
+	    header("pragma: ");
         
         
         

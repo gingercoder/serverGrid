@@ -52,7 +52,7 @@ class serverGridAPI{
      * Update server with the minute-by-minute breakdown
      *
      */
-    public function updateMyServer($serverid, $userid, $memfree='', $hostname='', $version='', $uptime='', $loadavg='')
+    public function updateMyServer($serverid, $userid, $memfree='', $hostname='', $version='', $uptime='', $loadavg='', $ipaddress='')
     {
 
         $sql = "INSERT INTO client_servers_log
@@ -64,7 +64,8 @@ class serverGridAPI{
                 loadAverage='".db::escapechars($loadavg)."',
                 uptime='".db::escapechars($uptime)."',
                 kernelVersion='".db::escapechars($version)."',
-                hostname='".db::escapechars($hostname)."'
+                hostname='".db::escapechars($hostname)."',
+                ipaddress='".db::escapechars($ipaddress)."'
                 ";
         $insertLog = db::execute($sql);
         if($insertLog){

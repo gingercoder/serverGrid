@@ -54,23 +54,26 @@
              }
             ?>
 
-                <h2>Select Server</h2>
+                <h2>Confirm server to delete</h2>
 
                 <?php
                 foreach($serverList as $server){
                     echo "<div class=\"graphbox\"><h3>".$server['serverName']."</h3><p>".$server['serverIdent']."<br/>".$server['serverOS']."</p>";
-
-                    ?>
-                    <form name="removeserver" action="/index.php" method="post">
-                        <input type="submit" value="Remove <?php echo $server['serverName']; ?>" class="btn btn-danger" />
-
-                        <input type="hidden" name="x" value="servergrid" />
-                        <input type="hidden" name="y" value="myservers" />
-                        <input type="hidden" name="z" value="remove" />
-                        <input type="hidden" name="action" value="remove" />
-                        <input type="hidden" name="serverid" value="<?php echo $server['serverid'];?>" />
-                    </form>
-                    </div><br/>
+                        if((!$d) || ($d == $server['serverid'])){
+                        ?>
+                        <form name="removeserver" action="/index.php" method="post">
+                            <input type="submit" value="Remove <?php echo $server['serverName']; ?>" class="btn btn-danger" />
+    
+                            <input type="hidden" name="x" value="servergrid" />
+                            <input type="hidden" name="y" value="myservers" />
+                            <input type="hidden" name="z" value="remove" />
+                            <input type="hidden" name="action" value="remove" />
+                            <input type="hidden" name="serverid" value="<?php echo $server['serverid'];?>" />
+                        </form>
+                        <?php
+                        }
+                        ?>
+                        </div><br/>
                 <?php
                 }
                 ?>

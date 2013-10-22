@@ -66,13 +66,20 @@
 
                 foreach($serverList as $server){
                     // Display graph output overview
-
                     // Get specific list of info for this server
-                    echo "<p><div class=\"graphbox\">
-                            <h4>".$server['serverName']."</h4>
-                            <a href=\"/index.php/servergrid/dashboard/display/".$server['serverid']."/\" class=\"btn btn-primary\">Full Status</a>
-                            <div id=\"graph".$server['serverid']."\"><div class=\"placeholder\"><img src=\"/web/img/serverGridStackAnimationSmall.gif\" alt=\"loading...\" title=\"loading...\" /></div></div>
-                            </div></p>";
+                    ?>
+                    <p>
+                        <div class="graphbox">
+                            <h4><?php echo $server['serverName']; ?></h4>
+                            <a href="<?php echo "/index.php/servergrid/dashboard/display/".$server['serverid']; ?>/" class="btn btn-primary">Full Status</a>
+                            <div id="graph<?php echo $server['serverid']; ?>">
+                                <div class="placeholder">
+                                    <img src="/web/img/serverGridStackAnimationSmall.gif" alt="loading..." title="loading..." />
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                    <?php
                 }
                 ?>
         </div>

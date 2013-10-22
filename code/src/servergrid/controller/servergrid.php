@@ -11,7 +11,7 @@
 *
 * ServerGrid core control mechanisms
 * Core routines for delivering and storing information
-* Author: Rick Trotter <rick@pizzaboxsoftware.co.uk>
+* Author: Rick Trotter <rick@gingercoder.com>
 *
 */
 
@@ -191,20 +191,22 @@ class serverGrid extends MicroFramework{
                         * Filename: serverGrid.php<br/>
                         * Description:<br/>
                         * ServerGrid<br/>
-                        * Developed by PizzaBoxSoftware.co.uk<br/>
-                        * Non-invasive data capture file v1.0.1<br/>
+                        * Developed by gingerCoder()<br/>
+                        * gingerCoder.com
+                        * Non-invasive data capture file v1.0.2<br/>
                         */<br/>
                         &dollar;myIdent = \"".$serverinfo['serverIdent']."\";<br/>
                         &dollar;serverid = \"".$serverinfo['serverid']."\";<br/>
                         &dollar;userid = \"".$this->usernametoid($_SESSION['username'])."\";<br/>
                         ";
 
-        $servercode .= "&dollar;memfree =shell_exec('".$mylocations['memory']."');<br/>";
-        $servercode .= "&dollar;hostname =shell_exec('".$mylocations['hostname']."');<br/>";
-        $servercode .= "&dollar;version =shell_exec('".$mylocations['version']."');<br/>";
-        $servercode .= "&dollar;uptime =shell_exec('".$mylocations['uptime']."');<br/>";
-        $servercode .= "&dollar;loadavg =shell_exec('".$mylocations['loadavg']."');<br/>";
-
+        $servercode .= "&dollar;memfree = shell_exec('".$mylocations['memory']."');<br/>";
+        $servercode .= "&dollar;hostname = shell_exec('".$mylocations['hostname']."');<br/>";
+        $servercode .= "&dollar;version = shell_exec('".$mylocations['version']."');<br/>";
+        $servercode .= "&dollar;uptime = shell_exec('".$mylocations['uptime']."');<br/>";
+        $servercode .= "&dollar;loadavg = shell_exec('".$mylocations['loadavg']."');<br/>";
+        $servercode .= "&dollar;ipaddress = &dollar;_SERVER['SERVER_ADDR'];<br/>";
+        
         $servercode .="
                         &dollar;url = 'http://".$_SERVER['SERVER_ADDR']."/api/updateMyGrid/';<br/>
                         &dollar;fields = array(<br/>
@@ -213,6 +215,7 @@ class serverGrid extends MicroFramework{
                                                 'version' => urlencode(&dollar;version),<br/>
                                                 'uptime' => urlencode(&dollar;uptime),<br/>
                                                 'loadavg' => urlencode(&dollar;loadavg),<br/>
+                                                'ipaddress' => urlencode(&dollar;ipaddress),<br/>
                                                 'ident' => urlencode(&dollar;myIdent),<br/>
                                                 'serverid' => urlencode(&dollar;serverid),<br/>
                                                 'userid' => urlencode(&dollar;userid)<br/>

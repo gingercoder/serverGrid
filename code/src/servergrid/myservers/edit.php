@@ -21,9 +21,14 @@ if($_SESSION['username'] !=""){
         $serverList = $ObjSG->getServerList($ObjFramework->usernametoid($_SESSION['username']));
         require_once('web/core/homepage.php');
     }
-    elseif($_POST['action'] =="edit"){
+    elseif(($_POST['action'] =="edit")||($d)){
         // edit the information
-        $thisServer = $ObjSG->getServerInfo($_POST['serverid']);
+        if($_POST['serverid']){
+            $thisServer = $ObjSG->getServerInfo($_POST['serverid']);
+        }
+        else{
+            $thisServer = $ObjSG->getServerInfo($d);
+        }
         require_once('web/servergrid/myservers/edit.php');
     }
     else{

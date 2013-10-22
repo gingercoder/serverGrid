@@ -8,7 +8,7 @@
 <div class="container-fluid">
         <div class="row-fluid">
             <div class="span12">
-            <div class="hero-unit">
+            <div class="hero-unit serverGridHero">
                 <h1>System Error</h1>
                 <h2>Your location not in our approved list</h2>
                 

@@ -48,17 +48,15 @@
             <p>
                 Welcome online to ServerGrid monitoring system, <?php echo $_SESSION['username']; ?>.
             </p>
-            <p class="alert alert-info">
-                This system is currently in beta release format.
-            </p>
             <p>
-                Add your servers to your grid, then copy the generated file to your system. Using the cron job ServerGrid creates for you
-                to add monitoring to your systems. It's as simple as that - no mess, no fuss, no additional user accounts, no worries!
+                Add your servers to your grid, then copy the generated file to your system. Use the cron job ServerGrid creates for you
+                to add monitoring to your systems. It's as simple as that - no mess, no fuss, no additional user accounts, no supplimentary
+                third-party background-programs to lurk in your memory space!
             </p>
         </div>
 
         <div class="span4">
-            <h2>My Servers</h2>
+            <h2>My ServerGrid</h2>
             <div class="accordion" id="accordion-262915">
 
                 <?php
@@ -103,12 +101,20 @@
             <h2>
                 Alerts
             </h2>
-            <p>
-                Latest system alerts
-            </p>
             <?php
+                $numberOfAlerts = 0;
                 foreach($serverList as $server){
-                    echo $ObjSG->checkServerState($server['serverid']);
+                    $serverAlert = $ObjSG->checkServerState($server['serverid']);
+                    if($serverAlert){
+                        echo $serverAlert;
+                        $numberOfAlerts++;
+                    }
+                }
+                if($numberOfAlerts>0){
+                    echo "<p>There are ".$numberOfAlerts." alerts requiring your attention</p>";
+                }
+                else{
+                    echo "<p>There are no alerts requiring attention</p>";
                 }
             ?>
         </div>

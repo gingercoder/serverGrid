@@ -22,10 +22,17 @@ body{
     text-align: center;
     border-bottom: 2px solid #336699;
 }
+
+.accordion-group{
+    border: none;
+}
 .accordion-heading{
     background: #336699;
     color: #fff;
     border: 2px solid #336699;
+    border-radius: 8px;
+    --moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
 }
 .accordion-heading a{
     color: #fff;
@@ -37,7 +44,18 @@ body{
 }
 .accordion-heading a:hover{
     color: #fff;
-    text-decoration: underline;
+}
+.accordion-body{
+    border: none;
+    background-color: #000000;
+    border-radius: 8px;
+    --moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    background: url(../img/metal_background.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .breadcrumb{
@@ -72,6 +90,11 @@ body{
     display: block;
     height: auto;
     width: auto;
+    background: url(../img/metal_background.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 footer{

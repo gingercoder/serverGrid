@@ -13,20 +13,22 @@ abstract class db {
          * Connect to the database
          * 
          */
-        public function dbconnect($dbhost, $dbuser, $dbpass, $dbname){
+        public static function dbconnect($dbhost, $dbuser, $dbpass, $dbname){
             // Connect to the database
             if(!self::$boolConnected)
             {
                     $conn = mysql_connect($dbhost, $dbuser, $dbpass);
                     if($conn === FALSE)
                     {
-                        die ("Cannot connect to MySql database control. Please contact your system administrator or try again in 2 minutes.");
+			require_once('web/core/security/dbfailure.php');
+                        die;
                     }
                     else{
                         $dbase = mysql_select_db($dbname, $conn);
                         if($dbase === FALSE)
                         {
-                            die ("Cannot connect to your specified database. Please try again and contact your system administrator if problems persist..");
+                            require_once('web/core/security/dbfailure.php');
+			    die;
                         }
                     }
                     $boolConnected = true;
@@ -58,7 +60,7 @@ abstract class db {
     	/*
          *  Function to return a single row from SQL
          */
-    	public function returnrow($sql){
+    	public static function returnrow($sql){
     		
                 $sql .= " LIMIT 1";
     		$result = mysql_query($sql);
@@ -76,11 +78,15 @@ abstract class db {
         /*
          *  Function to return all rows from a specified query
          */
-    	public function returnallrows($sql){
+    	public static function returnallrows($sql){
     		// Get all rows from the database given the SQL from the application
                 $result = mysql_query($sql);
     		$resultset = array();
                     
+		if(!$result){
+		    return false;
+		}
+		
                 while($arow = mysql_fetch_assoc($result)){
                     $resultset[] = $arow;
                 }
@@ -104,8 +110,13 @@ abstract class db {
         public function getnumrows($sql){
             // Get the number of rows for a SQL query
             $result = mysql_query($sql);
-            $numrows = mysql_numrows($result);
-            return $numrows;
+            if($result) {
+                $numrows = mysql_numrows($result);
+		return $numrows;
+	    }
+	    else{
+		return 0;
+	    }
         }
         
         /*
@@ -121,7 +132,8 @@ abstract class db {
          * Function to disconnect from the database
          */
         public function disconnect(){
-            mysql_disconnect;
+            mysql_close();	    
+	    self::$boolConnected = false;
         }
     
     

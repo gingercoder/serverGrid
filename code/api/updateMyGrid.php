@@ -26,7 +26,7 @@ if($_POST['ident']!=""){
     $serverid = $ObjAPI->doauth(urldecode($_POST['userid']), urldecode($_POST['ident']));
     if($serverid !=""){
             // Authentication successful - operate the task
-            $updateSG = $ObjAPI->updateMyServer($serverid, urldecode($_POST['userid']), urldecode($_POST['memfree']), urldecode($_POST['hostname']), urldecode($_POST['version']), urldecode($_POST['uptime']), urldecode($_POST['loadavg']));
+            $updateSG = $ObjAPI->updateMyServer($serverid, urldecode($_POST['userid']), urldecode($_POST['memfree']), urldecode($_POST['hostname']), urldecode($_POST['version']), urldecode($_POST['uptime']), urldecode($_POST['loadavg']), urldecode($_POST['ipaddress']));
             if($updateSG == true){
                 echo "Updated";
                 exit();

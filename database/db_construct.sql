@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `client_servers` (
   `serverOS` varchar(50) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateModified` datetime NOT NULL,
+  `ipaddress` varchar(15) DEFAULT NULL,  
   PRIMARY KEY (`serverid`),
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Servers added by clients' AUTO_INCREMENT=11 ;
@@ -43,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `client_servers_log` (
   `kernelVersion` varchar(150) DEFAULT NULL,
   `uptime` varchar(50) DEFAULT NULL,
   `hostname` varchar(100) DEFAULT NULL,
+  `ipaddress` varchar(15) DEFAULT NULL,  
   PRIMARY KEY (`logid`),
   KEY `serverid` (`serverid`,`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Server Log files' AUTO_INCREMENT=309 ;

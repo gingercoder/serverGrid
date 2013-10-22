@@ -62,7 +62,7 @@
 
         <div class="span8">
             <?php
-            if($_POST['action'] == "edit"){
+            if($thisServer['serverid']){
 
             ?>
             <form name="addserver" action="/index.php" method="post">

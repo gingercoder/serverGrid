@@ -55,10 +55,12 @@
             <p>
                 PHP5 and PHP5-CURL need to be installed on your server in order for the server script to run on your machine.
             </p>
-            <p>
-                If you're on a Debian/Ubuntu system you can run :<br/>
-                <strong>sudo apt-get install php5; sudo apt-get install php5-curl</strong>
-            </p>
+                <div class="alert alert-info">
+                    <p>
+                    If you're on a Debian/Ubuntu system you can run:  
+                    sudo apt-get install php5; sudo apt-get install php5-curl
+                    </p>
+                </div>
         </div>
 
         <div class="span8">
@@ -68,14 +70,28 @@
             <form name="addserver" action="/index.php" method="post">
                 <h2>Generate Code</h2>
                 <p>
-                    <label>Select Server</label>
-                    <select name="serverid" >
-                        <?php
-                        foreach($serverList as $server){
-                            echo "<option value=\"".$server['serverid']."\">".$server['serverName']."</option>";
-                        }
+                    
+                    <?php
+                    if($d){
                         ?>
-                    </select>
+                        <h3><?php echo $ObjSG->getServerName($d); ?></h3>
+                        <input type="hidden" name="serverid" value="<?php echo $d;?>" />
+                        <?php
+                    }
+                    else{
+                        // Need to select the server because it hasn't been passed to the script
+                    ?>
+                        <label>Select Server</label>
+                        <select name="serverid" >
+                            <?php
+                            foreach($serverList as $server){
+                                echo "<option value=\"".$server['serverid']."\">".$server['serverName']."</option>";
+                            }
+                            ?>
+                        </select>
+                    <?php
+                    }
+                    ?>
                 </p>
                 <p>
                     <label>Frequency</label>

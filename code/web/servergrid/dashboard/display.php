@@ -52,6 +52,10 @@
                 Added:
                 <?php echo $serverInfo['dateCreated']; ?>
             </p>
+            <p>
+                IP Address:
+                <?php echo $serverInfo['ipaddress']; ?>
+            </p>
         </div>
 
         <div class="span8">
@@ -78,8 +82,11 @@
         </div>
     </div>
     <div class="row-fluid">
-        <div class="span3">
+        <div class="span2">
             <h3>Date</h3>
+        </div>
+        <div class="span2">
+            <h3>IP</h3>
         </div>
         <div class="span2">
             <h3>Free Memory</h3>
@@ -87,7 +94,7 @@
         <div class="span2">
             <h3>Load Average</h3>
         </div>
-        <div class="span3">
+        <div class="span2">
             <h3>Kernel</h3>
         </div>
         <div class="span2">
@@ -100,9 +107,14 @@
     foreach($serverLog as $log){
     ?>
         <div class="row-fluid">
-            <div class="span3">
+            <div class="span2">
                 <?php
                     echo $log['dateCreated'];
+                ?>
+            </div>
+            <div class="span2">
+                <?php
+                    echo $log['ipaddress'];
                 ?>
             </div>
             <div class="span2">
@@ -115,7 +127,7 @@
                     echo $log['loadAverage'];
                 ?>
             </div>
-            <div class="span3">
+            <div class="span2">
                 <?php
                     echo $log['kernelVersion'];
                 ?>
