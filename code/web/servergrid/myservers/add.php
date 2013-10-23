@@ -66,14 +66,19 @@
                 </select>
             </p>
             <p>
+                <label>IP Address</label>
+                <input type="text" name="ipaddress" class="input input-medium" />
+            </p>
+            <p>
                 <input type="submit" value="Add Server" class="btn btn-success" />
             </p>
-            </div>
+            
             <input type="hidden" name="x" value="servergrid" />
             <input type="hidden" name="y" value="myservers" />
             <input type="hidden" name="z" value="add" />
             <input type="hidden" name="action" value="save" />
             </form>
+            </div>
         </div>
 
     </div>

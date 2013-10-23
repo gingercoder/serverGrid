@@ -56,6 +56,9 @@
                 IP Address:
                 <?php echo $serverInfo['ipaddress']; ?>
             </p>
+            <?php
+                echo $ObjSG->checkForIPAddressChange($serverInfo['serverid']);
+            ?>
         </div>
 
         <div class="span8">
@@ -82,6 +85,14 @@
         </div>
     </div>
     <div class="row-fluid">
+        <div class="span6">
+            <a href="/index.php/servergrid/dashboard/display/<?php echo $d; ?>/<?php echo $previous; ?>" class="btn">&lt; Previous</a>
+        </div>
+        <div class="span6">
+            <a href="/index.php/servergrid/dashboard/display/<?php echo $d; ?>/<?php echo $next; ?>" class="btn">&gt; Next</a>
+        </div>
+    </div>
+    <div class="row-fluid">
         <div class="span2">
             <h3>Date</h3>
         </div>
@@ -103,7 +114,7 @@
     </div>
     <?php
     // Display the system log for the last 24 hours
-    $serverLog = $ObjSG->getServerStats($ObjSG->usernametoid($_SESSION['username']), $d);
+    $serverLog = $ObjSG->getServerStats($ObjSG->usernametoid($_SESSION['username']), $d, $start, 30);
     foreach($serverLog as $log){
     ?>
         <div class="row-fluid">

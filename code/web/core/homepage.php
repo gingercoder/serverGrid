@@ -109,6 +109,12 @@
                         echo $serverAlert;
                         $numberOfAlerts++;
                     }
+                    
+                    $checkip = $ObjSG->checkForIPAddressChange($server['serverid']);
+                    if($checkip !=""){
+                        echo $checkip;
+                        $numberOfAlerts++;
+                    }
                 }
                 if($numberOfAlerts>0){
                     echo "<p>There are ".$numberOfAlerts." alerts requiring your attention</p>";

@@ -79,11 +79,11 @@ CREATE TABLE IF NOT EXISTS `framework_settings` (
 INSERT INTO `framework_settings` (`settingName`, `settingValue`) VALUES
 ('appTitle', 'ServerGrid'),
 ('appDescription', 'Remote Server Information'),
-('footerInfo', 'ServerGrid built by PizzaBoxSoftware'),
+('footerInfo', 'ServerGrid built by gingerCoder()'),
 ('outputType', 'php'),
 ('passwordSeed', '2d5377a9e28871fefc8c5ee77e06f818'),
 ('firewall', 'off'),
-('emailSentFrom', 'servergrid@pizzaboxsoftware.co.uk'),
+('emailSentFrom', 'servergrid@gingercoder.com'),
 ('emailFooter', 'Automatically generated email from ServerGrid inteded for recipient only');
 --
 -- Table structure for table `logs`

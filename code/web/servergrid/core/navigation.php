@@ -45,6 +45,8 @@
                               <ul class="dropdown-menu">
                                     <li><a href="/index.php/servergrid/myservers/getscripts/<?php echo $thisserver;?>">Get Scripts</a></li>
                                     <li class="divider"></li>
+                                    <li><a href="/index.php/servergrid/dashboard/display/<?php echo $thisserver;?>/">Display</a></li>
+                                    <li class="divider"></li>
                                     <li><a href="/index.php/servergrid/myservers/edit/<?php echo $thisserver;?>">Edit</a></li>
                                     <li><a href="/index.php/servergrid/myservers/remove/<?php echo $thisserver;?>">Remove</a></li>
                               </ul>

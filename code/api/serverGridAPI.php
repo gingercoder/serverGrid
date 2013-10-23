@@ -1,18 +1,19 @@
 <?php
 
-/*
-*
-*   _____                           _____      _     _
-*  / ____|                         / ____|    (_)   | |
-* | (___   ___ _ ____   _____ _ __| |  __ _ __ _  __| |
-*  \___ \ / _ \ '__\ \ / / _ \ '__| | |_ | '__| |/ _` |
-*  ____) |  __/ |   \ V /  __/ |  | |__| | |  | | (_| |
-* |_____/ \___|_|    \_/ \___|_|   \_____|_|  |_|\__,_|
-*
-* ServerGrid API
-*
-* Core API mechanisms for the ServerGrid system
-*/
+    /*
+    *
+    *                                                      .d8888b.          d8b      888 
+    *                                                     d88P  Y88b         Y8P      888 
+    *                                                     888    888                  888 
+    * .d8888b   .d88b.  888d888 888  888  .d88b.  888d888 888        888d888 888  .d88888 
+    * 88K      d8P  Y8b 888P"   888  888 d8P  Y8b 888P"   888  88888 888P"   888 d88" 888 
+    * "Y8888b. 88888888 888     Y88  88P 88888888 888     888    888 888     888 888  888 
+    *      X88 Y8b.     888      Y8bd8P  Y8b.     888     Y88b  d88P 888     888 Y88b 888 
+    *  88888P'  "Y8888  888       Y88P    "Y8888  888      "Y8888P88 888     888  "Y88888 
+    * ServerGrid API Mechanism
+    * 
+    * Core API mechanisms for the ServerGrid system
+    */
 
 class serverGridAPI{
 
@@ -54,7 +55,6 @@ class serverGridAPI{
      */
     public function updateMyServer($serverid, $userid, $memfree='', $hostname='', $version='', $uptime='', $loadavg='', $ipaddress='')
     {
-
         $sql = "INSERT INTO client_servers_log
                 SET
                 serverid='".db::escapechars($serverid)."',

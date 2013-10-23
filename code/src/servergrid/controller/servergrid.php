@@ -40,7 +40,7 @@ class serverGrid extends MicroFramework{
      * Add a server to their list of servers
      *
      */
-    public function addServer($userid, $serverName, $serverOS)
+    public function addServer($userid, $serverName, $serverOS, $ipaddress)
     {
         $serverident = md5(db::escapechars($serverName).db::escapechars($serverOS).date(YmdHis));
 
@@ -51,6 +51,7 @@ class serverGrid extends MicroFramework{
                     serverIdent='".$serverident."',
                     serverName='".db::escapechars($serverName)."',
                     serverOS='".db::escapechars($serverOS)."',
+                    ipaddress = '".db::escapechars($ipaddress)."',
                     dateCreated=NOW(),
                     dateModified=NOW()";
         $insert = db::execute($sql);
@@ -68,13 +69,14 @@ class serverGrid extends MicroFramework{
      * Function to edit a server
      * locks to user id
      */
-    public function editServer($serverid, $userid, $serverName, $serverOS)
+    public function editServer($serverid, $userid, $serverName, $serverOS, $ipaddress)
     {
         $sql = "UPDATE
                     client_servers
                 SET
                     serverName='".db::escapechars($serverName)."',
                     serverOS='".db::escapechars($serverOS)."',
+                    ipaddress = '".db::escapechars($ipaddress)."',
                     dateModified=NOW()
                 WHERE
                     serverid='".db::escapechars($serverid)."'
@@ -205,7 +207,11 @@ class serverGrid extends MicroFramework{
         $servercode .= "&dollar;version = shell_exec('".$mylocations['version']."');<br/>";
         $servercode .= "&dollar;uptime = shell_exec('".$mylocations['uptime']."');<br/>";
         $servercode .= "&dollar;loadavg = shell_exec('".$mylocations['loadavg']."');<br/>";
-        $servercode .= "&dollar;ipaddress = &dollar;_SERVER['SERVER_ADDR'];<br/>";
+        
+        $servercode .= "&dollar;ipaddress = exec('/sbin/ifconfig eth0 |grep \"inet addr\" |awk \"{print &dollar;2}\" |awk -F: \"{print &dollar;2}\"', &dollar;ipoutput);<br/>";
+        $servercode .= "&dollar;ipaddress = trim(&dollar;ipoutput[0]);<br/>";
+        $servercode .= "&dollar;ipaddress = str_replace('inet addr:','',&dollar;ipaddress);<br/>";
+        $servercode .= "&dollar;currentipaddress = explode(' ', &dollar;ipaddress);<br/>";
         
         $servercode .="
                         &dollar;url = 'http://".$_SERVER['SERVER_ADDR']."/api/updateMyGrid/';<br/>
@@ -215,7 +221,7 @@ class serverGrid extends MicroFramework{
                                                 'version' => urlencode(&dollar;version),<br/>
                                                 'uptime' => urlencode(&dollar;uptime),<br/>
                                                 'loadavg' => urlencode(&dollar;loadavg),<br/>
-                                                'ipaddress' => urlencode(&dollar;ipaddress),<br/>
+                                                'ipaddress' => urlencode(&dollar;currentipaddress[0]),<br/>
                                                 'ident' => urlencode(&dollar;myIdent),<br/>
                                                 'serverid' => urlencode(&dollar;serverid),<br/>
                                                 'userid' => urlencode(&dollar;userid)<br/>
@@ -378,7 +384,7 @@ class serverGrid extends MicroFramework{
      * Get all server stats
      * last 24 hours only
      */
-    public function getServerStats($userid, $serverid)
+    public function getServerStats($userid, $serverid, $startpoint='', $limitvalue='')
     {
         $startdate = date('Y-m-d H:i:s', strtotime("-1 day"));
         $enddate = date('Y-m-d H:i:s');
@@ -396,12 +402,18 @@ class serverGrid extends MicroFramework{
                 BETWEEN
                     '$startdate' AND '$enddate'
                 ORDER BY
-                    dateCreated ASC";
-
+                    dateCreated DESC";
+        // limit the results displayed
+        if($limitvalue){
+            $sql .= " LIMIT ".db::escapechars($startpoint)." , ".db::escapechars($limitvalue)."";
+        }
         $resultset = db::returnallrows($sql);
         return $resultset;
     }
 
+    /*
+     *Check the state of the server
+     */
     public function checkServerState($serverid)
     {
         $getstatus = $this->getServerStats($this->usernametoid($_SESSION['username']),$serverid);
@@ -417,11 +429,43 @@ class serverGrid extends MicroFramework{
         return $returnCode;
     }
 
+    /*
+     * Grab the name of the server
+     */
     public function getServerName($serverid)
     {
         $sql = "SELECT serverName FROM client_servers WHERE serverid='".db::escapechars($serverid)."'";
         $result = db::returnrow($sql);
         return $result['serverName'];
+    }
+    
+    /*
+     * Check to see if there's been a change in the ip address of the machine for warning message
+     */
+    public function checkForipAddressChange($serverid)
+    {
+        $serverinformation = $this->getServerInfo($serverid);
+        
+        $sql = "SELECT
+                    *
+                FROM
+                    client_servers_log
+                WHERE
+                    serverid='".db::escapechars($serverid)."'
+                ORDER BY
+                    dateCreated DESC";
+        $currentLog = db::returnrow($sql);
+        if($serverinformation['ipaddress'] != $currentLog['ipaddress']){
+            $returnCode = "<div class=\"alert alert-warning\">
+                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button>\n
+                    <h4>&quot;".$this->getServerName($serverid)."&quot; server</h4>\n
+                    <p><strong>Warning!</strong> IP Address change from ".$serverinformation['ipaddress']." to ".$currentLog['ipaddress']."</p>
+                    </div><br/>";
+            return $returnCode;
+        }
+        else{
+            return;
+        }
     }
 }
 

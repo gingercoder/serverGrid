@@ -11,7 +11,7 @@ if($_SESSION['username'] !=""){
 
     if($_POST['action']=="save"){
         // Save the entry to the system
-        $editserver = $ObjSG->editServer($_POST['serverid'], $ObjFramework->usernametoid($_SESSION['username']),$_POST['serverName'], $_POST['serveros']);
+        $editserver = $ObjSG->editServer($_POST['serverid'], $ObjFramework->usernametoid($_SESSION['username']),$_POST['serverName'], $_POST['serveros'], $_POST['ipaddress']);
         if($editserver == true){
             $responseMsg = "Your server changes have been saved to the system and it is available to view now.";
         }
