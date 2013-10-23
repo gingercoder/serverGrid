@@ -40,7 +40,6 @@ else{
     $e = db::escapechars(trim($urlVars[6])); // var2 
 }
 
-
     // Pull the page head in
     require_once('web/core/head.php');
         

@@ -85,11 +85,11 @@
         </div>
     </div>
     <div class="row-fluid">
-        <div class="span6">
-            <a href="/index.php/servergrid/dashboard/display/<?php echo $d; ?>/<?php echo $previous; ?>" class="btn">&lt; Previous</a>
-        </div>
-        <div class="span6">
-            <a href="/index.php/servergrid/dashboard/display/<?php echo $d; ?>/<?php echo $next; ?>" class="btn">&gt; Next</a>
+        <div class="span12">
+            <ul class="pager">
+                <li><a href="/index.php/servergrid/dashboard/display/<?php echo $d; ?>/<?php echo $previous; ?>">&lt; Previous</a></li>
+                <li><a href="/index.php/servergrid/dashboard/display/<?php echo $d; ?>/<?php echo $next; ?>">&gt; Next</a></li>
+            </ul>
         </div>
     </div>
     <div class="row-fluid">

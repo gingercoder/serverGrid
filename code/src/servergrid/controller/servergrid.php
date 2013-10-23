@@ -214,7 +214,7 @@ class serverGrid extends MicroFramework{
         $servercode .= "&dollar;currentipaddress = explode(' ', &dollar;ipaddress);<br/>";
         
         $servercode .="
-                        &dollar;url = 'http://".$_SERVER['SERVER_ADDR']."/api/updateMyGrid/';<br/>
+                        &dollar;url = 'http://".$myApp['serverName']."/api/updateMyGrid/';<br/>
                         &dollar;fields = array(<br/>
                                                 'memfree' => urlencode(&dollar;memfree),<br/>
                                                 'hostname' => urlencode(&dollar;hostname),<br/>

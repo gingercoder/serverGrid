@@ -86,6 +86,7 @@
                                     </p>
                                     <p>
                                     <a href=\"/index.php/servergrid/dashboard/display/".$server['serverid']."\" class=\"btn btn-primary\">View</a>
+                                    <a href=\"/index.php/servergrid/myservers/edit/".$server['serverid']."\" class=\"btn btn-inverse\">Edit</a>
                                     </p>
                                 </div>
                             </div>
