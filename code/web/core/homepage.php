@@ -68,9 +68,14 @@
                 foreach($serverList as $server){
 
                     echo "
-                        <div class=\"accordion-group\">
-                            <div class=\"accordion-heading\">
-                                 <a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordion-262915\" href=\"#accordion-element-".$server['serverid']."\"><i class=\"icon-hdd icon-white\"></i> ".$server['serverName']."<br/></a>
+                        <div class=\"accordion-group\">";
+                        if($ObjSG->checkServerState($server['serverid']) !=""){
+                            echo"<div class=\"accordion-heading warningheading\">";
+                        }
+                    else{
+                        echo"<div class=\"accordion-heading\">";
+                    }
+                    echo "<a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordion-262915\" href=\"#accordion-element-".$server['serverid']."\"><i class=\"icon-hdd icon-white\"></i> ".$server['serverName']."<br/></a>
                             </div>";
                     if($firstone == 1){
                         echo "<div id=\"accordion-element-".$server['serverid']."\" class=\"accordion-body collapse in\">";

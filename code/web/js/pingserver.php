@@ -23,7 +23,7 @@ $myipaddress = $ObjSG->getmyipaddress($myserverid);
 
 $pingtime = $ObjSG->pingServer($myipaddress);
 if($pingtime != false){
-    echo  "<span class=\"label label-info\"><i class=\"icon-globe icon-white\"></i> $pingtime</span>";
+    echo  "<span class=\"label label-info\"><i class=\"icon-globe icon-white\"></i> $pingtime ms response</span>";
 }
 else{
     echo "<span class=\"label label-warning\"><i class=\"icon-thumbs-down\"></i> No Response</span>";

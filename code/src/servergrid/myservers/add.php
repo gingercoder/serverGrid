@@ -12,7 +12,7 @@ if($_SESSION['username'] !=""){
         // Save the entry to the system
         $addserver = $ObjSG->addServer($ObjFramework->usernametoid($_SESSION['username']),$_POST['serverName'], $_POST['serveros'], $_POST['ipaddress']);
         if($addserver != false){
-            $responseMsg = "Your server has been added to the system and is available to view now.<div class=\"servercode\">IDENT: $addserver</div>";
+            $responseMsg = "Your server has been added to the system and is available to view now.<br/>IDENT: $addserver";
         }
         else{
             $responseMsg = "Adding your server failed - please try again";

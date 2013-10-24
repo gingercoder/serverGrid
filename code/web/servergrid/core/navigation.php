@@ -22,7 +22,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="/index.php/core/system/password"><i class="icon-user"></i> Change Password</a></li>
                     <li><a href="/index.php/core/help/index/"><i class="icon-book"></i> Help</a></li>
-                    <li><a href="/index.php/core/security/logout"><i class="icon-remove-circle"></i> Logout</a></li>
+                    <li><a href="/index.php/core/security/logout"><i class="icon-off"></i> Logout</a></li>
                 </ul>
                 </li>
             </ul>

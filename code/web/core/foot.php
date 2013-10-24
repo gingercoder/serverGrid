@@ -22,8 +22,10 @@ db::disconnect();
     ?>
         <script type="text/javascript">
             var loadUrl = "/web/js/pingserver.php";
+            var ajax_load = "<img class='probing...' src='/web/img/serverGridStackAnimationSmall.gif' alt='probing...' />";
 
             $("#clickForPing").click(function(){
+                $("#clickForPingResult").html(ajax_load);
                 $.get(
                     loadUrl,
                     {language: "php", version: 5, serverid: <?php echo $d;?>},

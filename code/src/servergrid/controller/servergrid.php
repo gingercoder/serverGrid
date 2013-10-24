@@ -416,7 +416,7 @@ class serverGrid extends MicroFramework{
      */
     public function checkServerState($serverid)
     {
-        $getstatus = $this->getServerStats($this->usernametoid($_SESSION['username']),$serverid);
+        $getstatus = $this->getServerStats($this->usernametoid($_SESSION['username']),$serverid, 0, 1);
 
                 if(!$getstatus){
                     $returnCode = "<div class=\"alert\">

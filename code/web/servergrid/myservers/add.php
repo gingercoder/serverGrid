@@ -70,7 +70,7 @@
                 <input type="text" name="ipaddress" class="input input-medium" />
             </p>
             <p>
-                <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> Add Server/button>
+                <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> Add Server</button>
             </p>
             
             <input type="hidden" name="x" value="servergrid" />
