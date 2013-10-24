@@ -25,7 +25,7 @@ if($_SESSION['username'] !=""){
         $next = 30;
     }
     $limit = 30;
-    require_once('web/servergrid/dashboard/display.php');
+    require_once('web/servergrid/virtualrack/display.php');
 }
 else{
     require_once('web/core/login/index.php');

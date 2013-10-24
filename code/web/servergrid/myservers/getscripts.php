@@ -104,7 +104,7 @@
                     </select>
                 </p>
                 <p>
-                    <input type="submit" value="Create My Code" class="btn btn-success" />
+                    <button class="btn btn-success" type="submit"><i class="icon-file icon-white"></i> Create My Code</button>
                 </p>
                 <input type="hidden" name="x" value="servergrid" />
                 <input type="hidden" name="y" value="myservers" />

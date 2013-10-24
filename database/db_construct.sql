@@ -1,6 +1,7 @@
 -- ServerGrid
 -- Server Monitoring Application Framework
--- PizzaBoxSoftware.co.uk
+-- gingerCoder()
+-- gingercoder.com
 
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -21,9 +22,9 @@ CREATE TABLE IF NOT EXISTS `client_servers` (
   `serverIdent` varchar(32) NOT NULL,
   `serverName` varchar(255) NOT NULL,
   `serverOS` varchar(50) NOT NULL,
+  `ipaddress` varchar(15) DEFAULT NULL,  
   `dateCreated` datetime NOT NULL,
   `dateModified` datetime NOT NULL,
-  `ipaddress` varchar(15) DEFAULT NULL,  
   PRIMARY KEY (`serverid`),
   KEY `userid` (`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Servers added by clients' AUTO_INCREMENT=11 ;
@@ -42,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `client_servers_log` (
   `freemem` varchar(50) DEFAULT NULL,
   `loadAverage` varchar(50) DEFAULT NULL,
   `kernelVersion` varchar(150) DEFAULT NULL,
+  `ipaddress` varchar(15) DEFAULT NULL,  
   `uptime` varchar(50) DEFAULT NULL,
   `hostname` varchar(100) DEFAULT NULL,
-  `ipaddress` varchar(15) DEFAULT NULL,  
   PRIMARY KEY (`logid`),
   KEY `serverid` (`serverid`,`userid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Server Log files' AUTO_INCREMENT=309 ;
@@ -79,12 +80,14 @@ CREATE TABLE IF NOT EXISTS `framework_settings` (
 INSERT INTO `framework_settings` (`settingName`, `settingValue`) VALUES
 ('appTitle', 'ServerGrid'),
 ('appDescription', 'Remote Server Information'),
-('footerInfo', 'ServerGrid built by gingerCoder()'),
+('footerInfo', 'ServerGrid built by PizzaBoxSoftware'),
 ('outputType', 'php'),
 ('passwordSeed', '2d5377a9e28871fefc8c5ee77e06f818'),
 ('firewall', 'off'),
-('emailSentFrom', 'servergrid@gingercoder.com'),
+('emailSentFrom', 'servergrid@pizzaboxsoftware.co.uk'),
 ('emailFooter', 'Automatically generated email from ServerGrid inteded for recipient only');
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `logs`
 --
@@ -125,5 +128,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`userid`, `firstname`, `surname`, `emailaddress`, `telephone`, `jobtitle`, `usertype`, `username`, `password`) VALUES
-(1, 'ServerGrid', 'Admin', 'servergridadmin@pizzaboxsoftware.co.uk', '0123456', 'System Admin', 5, 'sysadmin', '9e7a2f946feed6a7e4d9d7b5b635b080');
+(1, 'ServerGrid', 'Admin', 'servergridadmin@gingercoder.com', '0123456', 'System Admin', 5, 'sysadmin', '9e7a2f946feed6a7e4d9d7b5b635b080');
 

@@ -21,16 +21,16 @@
 <div class="row-fluid">
     <div class="span3"></div>
     <div class="span1"><img src="/web/img/serverGridStack.png" alt="ServerGrid Icon" /></div>
-    <div class="span5">
+    <div class="span3">
       <form class="form-signin" action="/index.php" method="post">
         <h2 class="form-signin-heading">Log In</h2>
-        <input type="text" class="input-block-level" placeholder="Username" name="uname">
-        <input type="password" class="input-block-level" placeholder="Password" name="pword">
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+        <input type="text" class="input-medium input-block-level" placeholder="Username" name="uname">
+        <input type="password" class="input-medium input-block-level" placeholder="Password" name="pword">
+        <button class="btn btn-primary" type="submit"><i class="icon-off icon-white"></i> Sign in</button>
         <input type="hidden" name="x" value="core" />
         <input type="hidden" name="y" value="security" />
         <input type="hidden" name="z" value="login" />
       </form>
     </div>
-    <div class="span3"></div>
+    <div class="span5"></div>
 </div>

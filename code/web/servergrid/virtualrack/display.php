@@ -20,7 +20,7 @@
                     <a href="/index.php" class="active">Home</a> <span class="divider">/</span>
                 </li>
                 <li>
-                    <a href="/index.php/servergrid/dashboard/overview/">Dashboard</a> <span class="divider">/</span>
+                    <a href="/index.php/servergrid/virtualrack/overview/">Virtual Rack</a> <span class="divider">/</span>
                 </li>
                 <li class="active">
                     Server Display
@@ -36,10 +36,12 @@
     </div>
     <div class="row-fluid">
         <div class="span4">
-
             <h2>
                 <?php echo $serverInfo['serverName']; ?>
             </h2>
+            <p>
+                <a href="/index.php/servergrid/myservers/edit/<?php echo $serverInfo['serverid'];?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit Server</a>
+            </p>
             <p>
                 Running:
                 <?php echo $serverInfo['serverOS']; ?>
@@ -58,6 +60,17 @@
             </p>
             <?php
                 echo $ObjSG->checkForIPAddressChange($serverInfo['serverid']);
+            ?>
+            <?php
+                if($serverInfo['ipaddress']){
+                    // if ip address exists, try and do an AJAX call to check the time on a click event
+                    echo "<button name=\"clickForPing\" id=\"clickForPing\" class=\"btn btn-success\" type=\"submit\"><i class=\"icon-refresh icon-white\"></i> Check Port 80 response</button>";
+                    echo "<br/><span id=\"clickForPingResult\"></span>";
+                }
+            else{
+                echo "No IP set, can't try a ping";
+            }
+
             ?>
         </div>
 
@@ -81,14 +94,20 @@
     </div>
     <div class="row-fluid">
         <div class="span12">
-            <h2>System Log - Last 24 hours</h2>
+            <h3>System Log - Last 24 hours - Displaying logs <?php echo $start." - ".$next; ?></h3>
         </div>
     </div>
     <div class="row-fluid">
         <div class="span12">
             <ul class="pager">
-                <li><a href="/index.php/servergrid/dashboard/display/<?php echo $d; ?>/<?php echo $previous; ?>">&lt; Previous</a></li>
-                <li><a href="/index.php/servergrid/dashboard/display/<?php echo $d; ?>/<?php echo $next; ?>">&gt; Next</a></li>
+                <?php
+                if($start>0){
+                    ?>
+                    <li><a href="/index.php/servergrid/virtualrack/display/<?php echo $d; ?>/<?php echo $previous; ?>">&lt; Previous 30</a></li>
+                    <?php
+                }
+                ?>
+                <li><a href="/index.php/servergrid/virtualrack/display/<?php echo $d; ?>/<?php echo $next; ?>">&gt; Next 30</a></li>
             </ul>
         </div>
     </div>
@@ -126,6 +145,9 @@
             <div class="span2">
                 <?php
                     echo $log['ipaddress'];
+                    if($log['ipaddress'] != $serverInfo['ipaddress']){
+                        echo "<span class=\"badge badge-warning\"><i class=\"icon-warning-sign icon-white\" title=\"IP Address doesn't match stored address\"> </i></span>";
+                    }
                 ?>
             </div>
             <div class="span2">

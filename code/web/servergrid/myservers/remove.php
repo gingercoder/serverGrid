@@ -62,8 +62,7 @@
                         if((!$d) || ($d == $server['serverid'])){
                         ?>
                         <form name="removeserver" action="/index.php" method="post">
-                            <input type="submit" value="Remove <?php echo $server['serverName']; ?>" class="btn btn-danger" />
-    
+                            <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> Remove <?php echo $server['serverName']; ?></button>
                             <input type="hidden" name="x" value="servergrid" />
                             <input type="hidden" name="y" value="myservers" />
                             <input type="hidden" name="z" value="remove" />

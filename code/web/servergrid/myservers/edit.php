@@ -90,7 +90,7 @@
                     <input type="text" name="ipaddress" class="input input-medium" value="<?php echo $thisServer['ipaddress'];?>" />
                 </p>
                 <p>
-                    <input type="submit" value="Save Changes" class="btn btn-success" />
+                    <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> Save Changes</button>
                 </p>
         
             <input type="hidden" name="x" value="servergrid" />
@@ -114,7 +114,7 @@
 
                 ?>
                 <form name="editserver" action="/index.php" method="post">
-                    <input type="submit" value="Edit <?php echo $server['serverName']; ?>" class="btn btn-primary" />
+                    <button class="btn btn-success" type="submit"><i class="icon-pencil icon-white"></i> <?php echo $server['serverName']; ?></button>
 
                     <input type="hidden" name="x" value="servergrid" />
                     <input type="hidden" name="y" value="myservers" />

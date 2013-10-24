@@ -20,7 +20,7 @@
                     <a href="/index.php" class="active">Home</a> <span class="divider">/</span>
                 </li>
                 <li>
-                    <a href="/index.php/servergrid/dashboard/overview/">Dashboard</a> <span class="divider">/</span>
+                    <a href="/index.php/servergrid/virtualrack/overview/">Virtual Rack</a> <span class="divider">/</span>
                 </li>
                 <li class="active">
                     Overview
@@ -50,7 +50,7 @@
         <div class="span4">
 
             <h2>
-                Dashboard
+                Virtual Rack
             </h2>
             <p>
                 Your general ServerGrid server activity in the last 24 hours is displayed here.
@@ -58,10 +58,14 @@
             <p>
                 Select a specific server to view more information about the server.
             </p>
+            <p>
+                Not seeing information from your server? Perhaps your cron job has failed or
+                there is an issue with your network connection from your box.
+            </p>
         </div>
 
         <div class="span8">
-            <h2>My Server Grid Stats</h2>
+            <h2>ServerGrid Virtual Rack</h2>
                 <?php
 
                 foreach($serverList as $server){
@@ -71,7 +75,7 @@
                     <p>
                         <div class="graphbox">
                             <h4><?php echo $server['serverName']; ?></h4>
-                            <a href="<?php echo "/index.php/servergrid/dashboard/display/".$server['serverid']; ?>/" class="btn btn-primary">Full Status</a>
+                            <a href="<?php echo "/index.php/servergrid/virtualrack/display/".$server['serverid']; ?>/" class="btn btn-primary"><i class="icon-eye-open icon-white"></i> View System</a>
                             <div id="graph<?php echo $server['serverid']; ?>">
                                 <div class="placeholder">
                                     <img src="/web/img/serverGridStackAnimationSmall.gif" alt="loading..." title="loading..." />

@@ -78,6 +78,7 @@ body{
 }
 
 .updatediv{
+    padding-bottom: 10px;
     border-bottom: 2px solid #336699;
 }
 .updatediv h3{

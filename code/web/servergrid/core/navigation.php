@@ -18,11 +18,11 @@
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Logged in as <?php echo $_SESSION['username'];?> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home icon-white"></i> <?php echo $_SESSION['username'];?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/index.php/core/system/password">Change Password</a></li>
-                    <li><a href="/index.php/core/help/index/">Help</a></li>
-                    <li><a href="/index.php/core/security/logout">Logout</a></li>
+                    <li><a href="/index.php/core/system/password"><i class="icon-user"></i> Change Password</a></li>
+                    <li><a href="/index.php/core/help/index/"><i class="icon-book"></i> Help</a></li>
+                    <li><a href="/index.php/core/security/logout"><i class="icon-remove-circle"></i> Logout</a></li>
                 </ul>
                 </li>
             </ul>
@@ -41,14 +41,14 @@
                         $thisservername = $aserver['serverName'];
                     ?>
                         <li class="dropdown-submenu">
-                              <a tabindex="-1" href="#"></strong><?php echo $thisservername;?></a>
+                              <a tabindex="-1" href="#"><i class="icon-hdd"></i> <?php echo $thisservername;?></a>
                               <ul class="dropdown-menu">
-                                    <li><a href="/index.php/servergrid/myservers/getscripts/<?php echo $thisserver;?>">Get Scripts</a></li>
+                                    <li><a href="/index.php/servergrid/myservers/getscripts/<?php echo $thisserver;?>"><i class="icon-file"></i> Get Scripts</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="/index.php/servergrid/dashboard/display/<?php echo $thisserver;?>/">Display</a></li>
+                                    <li><a href="/index.php/servergrid/virtualrack/display/<?php echo $thisserver;?>/"><i class="icon-eye-open"></i> Display</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="/index.php/servergrid/myservers/edit/<?php echo $thisserver;?>">Edit</a></li>
-                                    <li><a href="/index.php/servergrid/myservers/remove/<?php echo $thisserver;?>">Remove</a></li>
+                                    <li><a href="/index.php/servergrid/myservers/edit/<?php echo $thisserver;?>"><i class="icon-pencil"></i> Edit</a></li>
+                                    <li><a href="/index.php/servergrid/myservers/remove/<?php echo $thisserver;?>"><i class="icon-trash"></i> Remove</a></li>
                               </ul>
                         </li>
                   <?php
@@ -59,7 +59,7 @@
                 
               </li>
                 <li>
-                    <a href="/index.php/servergrid/dashboard/overview/">Dashboard</a>
+                    <a href="/index.php/servergrid/virtualrack/overview/">Virtual Rack</a>
                 </li>
             </ul>
           </div>

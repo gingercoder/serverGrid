@@ -422,7 +422,7 @@ class serverGrid extends MicroFramework{
                     $returnCode = "<div class=\"alert\">
                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button>\n
                     <h4>&quot;".$this->getServerName($serverid)."&quot; server</h4>\n
-                    <p><strong>Warning!</strong> I haven't seen this server in the past 24 hours!</p>
+                    <p><i class=\"icon-warning-sign\"></i> <strong>Warning!</strong> I haven't seen this server in the past 24 hours!</p>
                     </div><br/>";
 
                 }
@@ -459,13 +459,40 @@ class serverGrid extends MicroFramework{
             $returnCode = "<div class=\"alert alert-warning\">
                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button>\n
                     <h4>&quot;".$this->getServerName($serverid)."&quot; server</h4>\n
-                    <p><strong>Warning!</strong> IP Address change from ".$serverinformation['ipaddress']." to ".$currentLog['ipaddress']."</p>
+                    <p><i class=\"icon-warning-sign\"></i> <strong>Warning!</strong> IP Address change from ".$serverinformation['ipaddress']." to ".$currentLog['ipaddress']."</p>
                     </div><br/>";
             return $returnCode;
         }
         else{
             return;
         }
+    }
+
+    public function getmyipaddress($serverid)
+    {
+        $sql = "SELECT ipaddress FROM client_servers WHERE serverid='".db::escapechars($serverid)."'";
+        $result = db::returnrow($sql);
+        return $result['ipaddress'];
+    }
+
+
+    public function pingServer($ipaddress){
+        $starttime = microtime(true);
+        $file      = fsockopen ($ipaddress, 80, $errno, $errstr, 10);
+        $stoptime  = microtime(true);
+        $status    = 0;
+
+        if (!$file){
+            // Server unavailable
+            return false;
+        }
+        else {
+            fclose($file);
+            $status = ($stoptime - $starttime) * 1000;
+            $status = floor($status);
+            return $status;
+        }
+
     }
 }
 

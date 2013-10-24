@@ -12,7 +12,7 @@ if($_SESSION['username'] !=""){
     $serverList = $ObjSG->getServerList($ObjFramework->usernametoid($_SESSION['username']));
 
 
-    require_once('web/servergrid/dashboard/overview.php');
+    require_once('web/servergrid/virtualrack/overview.php');
 }
 else{
     require_once('web/core/login/index.php');

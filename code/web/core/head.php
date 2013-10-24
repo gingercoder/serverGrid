@@ -27,7 +27,7 @@
         <?php
         // If on the dashboard pages pull the graph jQuery in
 
-        if($b == "dashboard"){
+        if($b == "virtualrack"){
             echo "<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>";
             if($d !=""){
                 $limitToServer = db::escapechars($d);
@@ -37,6 +37,7 @@
             }
              require_once('web/js/overviewGraphs.php');
              require_once('web/js/memLoadGraph.php');
+
         }
         ?>
 

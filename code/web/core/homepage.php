@@ -33,9 +33,13 @@
         echo"<div class=\"row-fluid\">
             <div class=\"span12 updatediv\">
             <h3>System update:</h3>
-            ".$responseMsg."
+            <span class=\"alert alert-info\">
+            <i class=\"icon-comment\"></i> ".$responseMsg."
+            </span>
+            <br/>
             </div>
-        </div>";
+        </div>
+        <div class=\"row-fluid clearfix\"><br/></div>";
 
     }
     ?>
@@ -50,13 +54,13 @@
             </p>
             <p>
                 Add your servers to your grid, then copy the generated file to your system. Use the cron job ServerGrid creates for you
-                to add monitoring to your systems. It's as simple as that - no mess, no fuss, no additional user accounts, no supplimentary
+                to add monitoring to your systems. It's as simple as that - no mess, no fuss, no additional user accounts, no supplementary
                 third-party background-programs to lurk in your memory space!
             </p>
         </div>
 
         <div class="span4">
-            <h2>My ServerGrid</h2>
+            <h2>My ServerGrid Stack</h2>
             <div class="accordion" id="accordion-262915">
 
                 <?php
@@ -66,7 +70,7 @@
                     echo "
                         <div class=\"accordion-group\">
                             <div class=\"accordion-heading\">
-                                 <a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordion-262915\" href=\"#accordion-element-".$server['serverid']."\">".$server['serverName']."<br/></a>
+                                 <a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordion-262915\" href=\"#accordion-element-".$server['serverid']."\"><i class=\"icon-hdd icon-white\"></i> ".$server['serverName']."<br/></a>
                             </div>";
                     if($firstone == 1){
                         echo "<div id=\"accordion-element-".$server['serverid']."\" class=\"accordion-body collapse in\">";
@@ -85,8 +89,8 @@
                                         Load Average: ".$ObjSG->getLoadAverage($server['serverid'])."
                                     </p>
                                     <p>
-                                    <a href=\"/index.php/servergrid/dashboard/display/".$server['serverid']."\" class=\"btn btn-primary\">View</a>
-                                    <a href=\"/index.php/servergrid/myservers/edit/".$server['serverid']."\" class=\"btn btn-inverse\">Edit</a>
+                                    <a href=\"/index.php/servergrid/virtualrack/display/".$server['serverid']."\" class=\"btn btn-primary\"><i class=\"icon-eye-open icon-white\"></i> View</a>
+                                    <a href=\"/index.php/servergrid/myservers/edit/".$server['serverid']."\" class=\"btn btn-inverse\"><i class=\"icon-pencil icon-white\"></i> Edit</a>
                                     </p>
                                 </div>
                             </div>
@@ -118,10 +122,15 @@
                     }
                 }
                 if($numberOfAlerts>0){
-                    echo "<p>There are ".$numberOfAlerts." alerts requiring your attention</p>";
+                    if($numberOfAlerts>1){
+                        echo "<span class=\"label label-warning\"><i class=\"icon-warning-sign\"></i> There are ".$numberOfAlerts." alerts requiring your attention</span>";
+                    }
+                    else{
+                        echo "<span class=\"label label-warning\"><i class=\"icon-warning-sign\"></i> There is ".$numberOfAlerts." alert requiring your attention</span>";
+                    }
                 }
                 else{
-                    echo "<p>There are no alerts requiring attention</p>";
+                    echo "<span class=\"label label-info\"><i class=\"icon-ok\"></i> There are no alerts requiring attention</span>";
                 }
             ?>
         </div>
