@@ -97,7 +97,9 @@ body{
     -o-background-size: cover;
     background-size: cover;
 }
-
+#freespace_graph_div{
+    text-align: center;
+}
 footer{
     display: block;
     text-align:center;

@@ -188,18 +188,32 @@ class serverGrid extends MicroFramework{
      */
     public function createUnixServerCode($serverinfo, $mylocations, $frequency)
     {
+        $myApp = $this->getAppSettings();
+        if($myApp['serverName']){
+            $serverLocation = $myApp['serverName'];
+        }
+        else{
+            $serverLocation = $_SERVER['SERVER_ADDR'];
+        }
+
+
         $servercode = "<h3>serverGrid.php</h3><br/>&lt;?php<br/>
                         /* <br/>
                         * Filename: serverGrid.php<br/>
                         * Description:<br/>
                         * ServerGrid<br/>
                         * Developed by gingerCoder()<br/>
-                        * gingerCoder.com
+                        * gingerCoder.com<br/>
                         * Non-invasive data capture file v1.0.2<br/>
                         */<br/>
                         &dollar;myIdent = \"".$serverinfo['serverIdent']."\";<br/>
                         &dollar;serverid = \"".$serverinfo['serverid']."\";<br/>
                         &dollar;userid = \"".$this->usernametoid($_SESSION['username'])."\";<br/>
+                        ";
+        $servercode .= "&dollar;spacefree = disk_free_space(\"/\");<br/>
+                        &dollar;spacetotal = disk_total_space(\"/\");<br/>
+                        &dollar;spaceused = &dollar;spacetotal - &dollar;spacefree;<br/>
+                        &dollar;percentfree = sprintf('%.2f',(&dollar;spaceused / &dollar;spacetotal) * 100);<br/>
                         ";
 
         $servercode .= "&dollar;memfree = shell_exec('".$mylocations['memory']."');<br/>";
@@ -212,9 +226,10 @@ class serverGrid extends MicroFramework{
         $servercode .= "&dollar;ipaddress = trim(&dollar;ipoutput[0]);<br/>";
         $servercode .= "&dollar;ipaddress = str_replace('inet addr:','',&dollar;ipaddress);<br/>";
         $servercode .= "&dollar;currentipaddress = explode(' ', &dollar;ipaddress);<br/>";
-        
+        $servercode .= "&dollar;spacefree = &dollar;percentfree;<br/>";
+
         $servercode .="
-                        &dollar;url = 'http://".$myApp['serverName']."/api/updateMyGrid/';<br/>
+                        &dollar;url = 'http://".$serverLocation."/api/updateMyGrid/';<br/>
                         &dollar;fields = array(<br/>
                                                 'memfree' => urlencode(&dollar;memfree),<br/>
                                                 'hostname' => urlencode(&dollar;hostname),<br/>
@@ -222,6 +237,7 @@ class serverGrid extends MicroFramework{
                                                 'uptime' => urlencode(&dollar;uptime),<br/>
                                                 'loadavg' => urlencode(&dollar;loadavg),<br/>
                                                 'ipaddress' => urlencode(&dollar;currentipaddress[0]),<br/>
+                                                'spacefree' => urlencode(&dollar;percentfree),<br/>
                                                 'ident' => urlencode(&dollar;myIdent),<br/>
                                                 'serverid' => urlencode(&dollar;serverid),<br/>
                                                 'userid' => urlencode(&dollar;userid)<br/>
@@ -258,6 +274,13 @@ class serverGrid extends MicroFramework{
      */
     public function createWindowsServerCode($serverinfo, $frequency)
     {
+        $myApp = $this->getAppSettings();
+        if($myApp['serverName']){
+            $serverLocation = $myApp['serverName'];
+        }
+        else{
+            $serverLocation = $_SERVER['SERVER_ADDR'];
+        }
         $servercode = "<h3>Windows Powershell Code</h3><br/>
 		&dollar;at = Get-Date
 		&dollar;duration = [TimeSpan]::MaxValue
@@ -267,7 +290,7 @@ class serverGrid extends MicroFramework{
 		Unregister-ScheduledJob -Name ServerGrid -Force
 		Register-ScheduledJob -Name ServerGrid -Trigger $trigger -ScriptBlock {
 
-		&dollar;url = 'http://".$_SERVER['SERVER_ADDR']."/api/updateMyGrid/'
+		&dollar;url = 'http://".$serverLocation."/api/updateMyGrid/'
 						&dollar;os = Get-WmiObject Win32_OperatingSystem
 						&dollar;myIdent = '".$serverinfo['serverIdent']."'
 						&dollar;serverId = '".$serverinfo['serverid']."'
@@ -494,6 +517,26 @@ class serverGrid extends MicroFramework{
         }
 
     }
+
+    /*
+     * Get free disk space figures for / partition on server
+     *
+     */
+    public function getUsedSpace($serverid)
+    {
+        $sql = "SELECT
+                    freedisk
+                FROM
+                    client_servers_log
+                WHERE
+                    serverid='".(int)db::escapechars($serverid)."'
+                ORDER BY
+                    dateCreated DESC";
+
+        $result = db::returnrow($sql);
+        return $result['freedisk'];
+    }
+
 }
 
 ?>

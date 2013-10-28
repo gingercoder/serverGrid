@@ -37,7 +37,9 @@
             }
              require_once('web/js/overviewGraphs.php');
              require_once('web/js/memLoadGraph.php');
-
+            if(($b == "virtualrack") && ($c == "display")){
+                require_once('web/js/freeSpaceGraph.php');
+            }
         }
         ?>
 

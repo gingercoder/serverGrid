@@ -72,6 +72,11 @@
             }
 
             ?>
+            <p align="center">
+                <div class="graphbox">
+                    <div id="freespace_graph_div"></div>
+                </div>
+            </p>
         </div>
 
         <div class="span8">
