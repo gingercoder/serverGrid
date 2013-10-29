@@ -38,6 +38,9 @@
              require_once('web/js/overviewGraphs.php');
              require_once('web/js/memLoadGraph.php');
             if(($b == "virtualrack") && ($c == "display")){
+                ?>
+                <meta http-equiv="refresh" content="120">
+                <?php
                 require_once('web/js/freeSpaceGraph.php');
             }
         }

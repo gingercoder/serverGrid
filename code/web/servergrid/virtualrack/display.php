@@ -80,14 +80,14 @@
         </div>
 
         <div class="span8">
-            <h2>CPU load - last 24 hours</h2>
+            <h3>CPU load - last 24 hours</h3>
             <?php
 
             echo "<p><div class=\"graphbox\">
                   <div id=\"graph".$serverInfo['serverid']."\"><div class=\"preload\"><div class=\"placeholder\"><img src=\"/web/img/serverGridStackAnimationSmall.gif\" alt=\"loading...\" title=\"loading...\" /></div></div></div>
                   </div></p>";
             ?>
-            <h2>Memory Free - last 24 hours</h2>
+            <h3>Free Memory  - last 24 hours</h3>
             <?php
                 echo "<p><div class=\"graphbox\">
                 <div id=\"graphmem".$serverInfo['serverid']."\"><div class=\"preload\"><div class=\"placeholder\"><img src=\"/web/img/serverGridStackAnimationSmall.gif\" alt=\"loading...\" title=\"loading...\" /></div></div></div>

@@ -75,8 +75,13 @@
                     else{
                         echo"<div class=\"accordion-heading\">";
                     }
-                    echo "<a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordion-262915\" href=\"#accordion-element-".$server['serverid']."\"><i class=\"icon-hdd icon-white\"></i> ".$server['serverName']."<br/></a>
-                            </div>";
+                    echo "<a class=\"accordion-toggle\" data-toggle=\"collapse\" data-parent=\"#accordion-262915\" href=\"#accordion-element-".$server['serverid']."\"><i class=\"icon-hdd icon-white\"></i> ".$server['serverName'];
+                        // If there is an ip address tagged, display it for the server
+                        if($server['ipaddress']){
+                            echo " [ ".$server['ipaddress']." ]";
+                        }
+                    echo "<br/></a></div>";
+
                     if($firstone == 1){
                         echo "<div id=\"accordion-element-".$server['serverid']."\" class=\"accordion-body collapse in\">";
                         $firstone = 0;

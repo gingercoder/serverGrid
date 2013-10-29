@@ -197,7 +197,7 @@ class serverGrid extends MicroFramework{
         }
 
 
-        $servercode = "<h3>serverGrid.php</h3><br/>&lt;?php<br/>
+        $servercode = "<div class=\"servercode\"><h3>serverGrid.php</h3><br/>&lt;?php<br/>
                         /* <br/>
                         * Filename: serverGrid.php<br/>
                         * Description:<br/>
@@ -252,18 +252,18 @@ class serverGrid extends MicroFramework{
                         &dollar;result = curl_exec(&dollar;ch);<br/>
                         curl_close(&dollar;ch);<br/>
                         ";
-        $servercode .= "?&gt;<br/><br/><br/>";
+        $servercode .= "?&gt;<br/></div><br/><br/>";
 
         // Create the cron job code:
         // Frequency used to determine
         $frequency = db::escapechars($frequency);
         if($frequency < 60){
-            $servercode .= "<h3>Cron Entry</h3><br/><br/>
-                        */".$frequency." * * * * /usr/bin/php serverGrid.php<br/>";
+            $servercode .= "<div class=\"servercode\"><h3>Cron Entry</h3><br/><br/>
+                        */".$frequency." * * * * /usr/bin/php serverGrid.php<br/></div>";
         }
         else{
-            $servercode .= "<h3>Cron Entry</h3><br/><br/>
-                        0 * * * * /usr/bin/php serverGrid.php<br/>";
+            $servercode .= "<div class=\"servercode\"><h3>Cron Entry</h3><br/><br/>
+                        0 * * * * /usr/bin/php serverGrid.php<br/></div>";
         }
         return $servercode;
     }
@@ -281,7 +281,7 @@ class serverGrid extends MicroFramework{
         else{
             $serverLocation = $_SERVER['SERVER_ADDR'];
         }
-        $servercode = "<h3>Windows Powershell Code</h3><br/>
+        $servercode = "<div class=\"servercode\"><h3>Windows Powershell Code</h3><br/>
 		&dollar;at = Get-Date
 		&dollar;duration = [TimeSpan]::MaxValue
 		&dollar;interval = New-TimeSpan -minutes ".$frequency."
@@ -306,7 +306,7 @@ class serverGrid extends MicroFramework{
 
 						&dollar;uri = New-Object System.Uri(&dollar;url)
 						Invoke-WebRequest -Uri &dollar;uri.AbsoluteUri -Method Post -Body &dollar;body
-		}";
+		}</div>";
         return $servercode;
     }
 

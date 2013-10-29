@@ -34,8 +34,9 @@ $freeSpace = 100 - $usedSpace;
         var options = {'title':'Disk utilisation on / partition',
             'width':250,
             'height':250,
-            'colors':['#df8505','#336699']
-            };
+            'colors':['#df8505','#336699'],
+            'pieHole': 0.3
+        };
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('freespace_graph_div'));

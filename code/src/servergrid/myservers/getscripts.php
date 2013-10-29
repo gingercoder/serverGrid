@@ -16,7 +16,7 @@ if($_SESSION['username'] !=""){
         // Save the entry to the system
         $myscript = $ObjSG->createServerCode($_POST['serverid'], $_POST['frequency']);
         if($myscript != false){
-            $responseMsg = "<div class=\"servercode\">$myscript</div>";
+            $responseMsg = $myscript;
         }
         else{
             $responseMsg = "Generating your code failed for some reason - please try again";

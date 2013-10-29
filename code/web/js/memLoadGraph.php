@@ -10,7 +10,7 @@
     function drawMemChart() {
 
         // Set chart options
-        var options = {title: 'Memory Usage'};
+        var options = {'title': 'Free Memory'};
 
         // Create the data tables.
         <?php
