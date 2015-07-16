@@ -67,7 +67,7 @@
                             <input type="hidden" name="y" value="myservers" />
                             <input type="hidden" name="z" value="remove" />
                             <input type="hidden" name="action" value="remove" />
-                            <input type="hidden" name="serverid" value="<?php echo $server['serverid'];?>" />
+                            <input type="hidden" name="serverid" value="<?php echo $server['serverIdent'];?>" />
                         </form>
                         <?php
                         }

@@ -5,8 +5,8 @@
  */
 
 if($d){
-$usedSpace = $ObjSG->getUsedSpace($d);
-$freeSpace = 100 - $usedSpace;
+  $usedSpace = $ObjSG->getUsedSpace($ObjSG->serverIdentToID($d));
+  $freeSpace = 100 - $usedSpace;
 ?>
 <script type="text/javascript">
 
@@ -43,6 +43,5 @@ $freeSpace = 100 - $usedSpace;
         chart.draw(data, options);
     }
 </script>
-<?
+<?php
 }
-?>

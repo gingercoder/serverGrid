@@ -11,7 +11,7 @@ if($_SESSION['username'] !=""){
 
     if($_POST['action']=="save"){
         // Save the entry to the system
-        $editserver = $ObjSG->editServer($_POST['serverid'], $ObjFramework->usernametoid($_SESSION['username']),$_POST['serverName'], $_POST['serveros'], $_POST['ipaddress']);
+        $editserver = $ObjSG->editServer($ObjSG->serverIdentToID($_POST['serverid']), $ObjFramework->usernametoid($_SESSION['username']),$_POST['serverName'], $_POST['serveros'], $_POST['ipaddress']);
         if($editserver == true){
             $responseMsg = "Your server changes have been saved to the system and it is available to view now.";
         }
@@ -24,10 +24,10 @@ if($_SESSION['username'] !=""){
     elseif(($_POST['action'] =="edit")||($d)){
         // edit the information
         if($_POST['serverid']){
-            $thisServer = $ObjSG->getServerInfo($_POST['serverid']);
+            $thisServer = $ObjSG->getServerInfo($ObjSG->serverIdentToID($_POST['serverid']));
         }
         else{
-            $thisServer = $ObjSG->getServerInfo($d);
+            $thisServer = $ObjSG->getServerInfo($ObjSG->serverIdentToID($d));
         }
         require_once('web/servergrid/myservers/edit.php');
     }

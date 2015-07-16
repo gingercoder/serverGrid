@@ -7,7 +7,7 @@ if($_SESSION['username'] !=""){
     require_once('web/servergrid/core/navigation.php');
 
     // Get server stats
-    $serverInfo = $ObjSG->getServerInfo($d);
+    $serverInfo = $ObjSG->getServerInfo($ObjSG->serverIdentToID($d));
 
     if($e){
         $start = (int)$e;

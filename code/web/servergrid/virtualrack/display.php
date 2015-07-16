@@ -40,7 +40,7 @@
                 <?php echo $serverInfo['serverName']; ?>
             </h2>
             <p>
-                <a href="/index.php/servergrid/myservers/edit/<?php echo $serverInfo['serverid'];?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit Server</a>
+                <a href="/index.php/servergrid/myservers/edit/<?php echo $serverInfo['serverIdent'];?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit Server</a>
             </p>
             <p>
                 Running:
@@ -138,7 +138,7 @@
     </div>
     <?php
     // Display the system log for the last 24 hours
-    $serverLog = $ObjSG->getServerStats($ObjSG->usernametoid($_SESSION['username']), $d, $start, 30);
+    $serverLog = $ObjSG->getServerStats($ObjSG->usernametoid($_SESSION['username']), $ObjSG->serverIdentToID($d), $start, 30);
     foreach($serverLog as $log){
     ?>
         <div class="row-fluid">
@@ -185,4 +185,3 @@
     }
     ?>
 </div>
-

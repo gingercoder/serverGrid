@@ -7,7 +7,7 @@
  */
 
 
-db::disconnect();
+
 
 ?>
 <footer>
@@ -28,7 +28,7 @@ db::disconnect();
                 $("#clickForPingResult").html(ajax_load);
                 $.get(
                     loadUrl,
-                    {language: "php", version: 5, serverid: <?php echo $d;?>},
+                    {language: "php", version: 5, serverid: <?php echo $ObjSG->serverIdentToID($d);?>},
                     function(responseText){
                         $("#clickForPingResult").html(responseText);
                     },
@@ -41,6 +41,7 @@ db::disconnect();
         </script>
     <?php
     }
+    db::disconnect(); // Shut down the DB connection.
     ?>
 </body>
 </html>

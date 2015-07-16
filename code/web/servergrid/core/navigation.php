@@ -29,7 +29,7 @@
             <ul class="nav">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Grid <b class="caret"></b></a>
-                
+
                 <ul class="dropdown-menu">
                     <li><a href="/index.php/servergrid/myservers/add/"><strong>Add Server</strong></a></li>
                     <li class="divider"></li>
@@ -37,7 +37,7 @@
                     // for each server provide a link to undertake tasks
                     $myservers = $ObjSG->getServerList($ObjSG->usernametoid($_SESSION['username']));
                     foreach($myservers as $aserver){
-                        $thisserver = $aserver['serverid'];
+                        $thisserver = $aserver['serverIdent'];
                         $thisservername = $aserver['serverName'];
                     ?>
                         <li class="dropdown-submenu">
@@ -56,7 +56,7 @@
                     }
                   ?>
                 </ul>
-                
+
               </li>
                 <li>
                     <a href="/index.php/servergrid/virtualrack/overview/">Virtual Rack</a>

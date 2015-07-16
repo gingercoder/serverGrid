@@ -83,11 +83,11 @@
                     echo "<br/></a></div>";
 
                     if($firstone == 1){
-                        echo "<div id=\"accordion-element-".$server['serverid']."\" class=\"accordion-body collapse in\">";
+                        echo "<div id=\"accordion-element-".$server['serverIdent']."\" class=\"accordion-body collapse in\">";
                         $firstone = 0;
                     }
                     else{
-                        echo "<div id=\"accordion-element-".$server['serverid']."\" class=\"accordion-body collapse\">";
+                        echo "<div id=\"accordion-element-".$server['serverIdent']."\" class=\"accordion-body collapse\">";
                     }
                     echo " <div class=\"accordion-inner\">
                                     <h3>Server Settings</h3>
@@ -99,8 +99,8 @@
                                         Load Average: ".$ObjSG->getLoadAverage($server['serverid'])."
                                     </p>
                                     <p>
-                                    <a href=\"/index.php/servergrid/virtualrack/display/".$server['serverid']."\" class=\"btn btn-primary\"><i class=\"icon-eye-open icon-white\"></i> View</a>
-                                    <a href=\"/index.php/servergrid/myservers/edit/".$server['serverid']."\" class=\"btn btn-inverse\"><i class=\"icon-pencil icon-white\"></i> Edit</a>
+                                    <a href=\"/index.php/servergrid/virtualrack/display/".$server['serverIdent']."\" class=\"btn btn-primary\"><i class=\"icon-eye-open icon-white\"></i> View</a>
+                                    <a href=\"/index.php/servergrid/myservers/edit/".$server['serverIdent']."\" class=\"btn btn-inverse\"><i class=\"icon-pencil icon-white\"></i> Edit</a>
                                     </p>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                         echo $serverAlert;
                         $numberOfAlerts++;
                     }
-                    
+
                     $checkip = $ObjSG->checkForIPAddressChange($server['serverid']);
                     if($checkip !=""){
                         echo $checkip;
@@ -147,4 +147,3 @@
 
     </div>
 </div>
-

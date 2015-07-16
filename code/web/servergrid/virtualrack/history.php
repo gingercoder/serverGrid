@@ -1,5 +1,0 @@
-<?php
-# history.php
-# 
-?>
- 

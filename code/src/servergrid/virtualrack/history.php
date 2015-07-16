@@ -8,7 +8,7 @@ if($_SESSION['username'] !=""){
     require_once('web/servergrid/core/navigation.php');
 
     // Get server stats
-    $serverInfo = $ObjSG->getHistoricServerInfo($d, $startdate, $enddate);
+    $serverInfo = $ObjSG->getHistoricServerInfo($ObjSG->serverIdentToID($d), $startdate, $enddate);
 
     if($e){
         $start = (int)$e;
@@ -32,4 +32,3 @@ else{
     require_once('web/core/login/index.php');
 }
 ?>
- 

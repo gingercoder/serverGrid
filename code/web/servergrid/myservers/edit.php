@@ -92,11 +92,11 @@
                 <p>
                     <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> Save Changes</button>
                 </p>
-        
+
             <input type="hidden" name="x" value="servergrid" />
             <input type="hidden" name="y" value="myservers" />
             <input type="hidden" name="z" value="edit" />
-            <input type="hidden" name="serverid" value="<?php echo $thisServer['serverid'];?>" />
+            <input type="hidden" name="serverid" value="<?php echo $thisServer['serverIdent'];?>" />
             <input type="hidden" name="action" value="save" />
             </form>
         </div>

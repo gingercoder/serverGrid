@@ -16,7 +16,7 @@ $ObjFramework = new MicroFramework();
 require_once('../../src/servergrid/controller/servergrid.php');
 $ObjSG = new serverGrid();
 
-$myserverid = $_GET['serverid'];
+$myserverid = $ObjSG->serverIdentToID($_GET['serverid']);
 
 
 $myipaddress = $ObjSG->getmyipaddress($myserverid);

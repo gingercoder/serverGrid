@@ -57,7 +57,7 @@
             </p>
                 <div class="alert alert-info">
                     <p>
-                    If you're on a Debian/Ubuntu system you can run:  
+                    If you're on a Debian/Ubuntu system you can run:
                     sudo apt-get install php5; sudo apt-get install php5-curl
                     </p>
                 </div>
@@ -70,7 +70,7 @@
             <form name="addserver" action="/index.php" method="post">
                 <h2>Generate Code</h2>
                 <p>
-                    
+
                     <?php
                     if($d){
                         ?>
@@ -85,7 +85,7 @@
                         <select name="serverid" >
                             <?php
                             foreach($serverList as $server){
-                                echo "<option value=\"".$server['serverid']."\">".$server['serverName']."</option>";
+                                echo "<option value=\"".$server['serverIdent']."\">".$server['serverName']."</option>";
                             }
                             ?>
                         </select>

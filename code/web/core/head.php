@@ -8,9 +8,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <title><?php echo $myApp['appTitle']; ?></title>
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="robots" value="index,follow" />
         <meta name="description" value="<?php echo $myApp['appDescription']; ?>" />
@@ -30,7 +30,7 @@
         if($b == "virtualrack"){
             echo "<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>";
             if($d !=""){
-                $limitToServer = db::escapechars($d);
+                $limitToServer = $ObjSG->serverIdentToID($d);
             }
             else{
                 $limitToServer = false;

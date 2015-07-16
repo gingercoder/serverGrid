@@ -14,7 +14,7 @@ if($_SESSION['username'] !=""){
 
     if($_POST['action']=="create"){
         // Save the entry to the system
-        $myscript = $ObjSG->createServerCode($_POST['serverid'], $_POST['frequency']);
+        $myscript = $ObjSG->createServerCode($ObjSG->serverIdentToID($_POST['serverid']), $_POST['frequency']);
         if($myscript != false){
             $responseMsg = $myscript;
         }

@@ -5,7 +5,7 @@
 
         if($_POST['action']=="remove"){
             // Save the entry to the system
-            $removeserver = $ObjSG->removeServer($_POST['serverid']);
+            $removeserver = $ObjSG->removeServer($ObjSG->serverIdentToID($_POST['serverid']));
             if($removeserver == true){
                 $responseMsg = "Your server has been removed from the system.";
             }

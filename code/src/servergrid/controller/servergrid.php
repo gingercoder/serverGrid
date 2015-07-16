@@ -19,6 +19,17 @@ class serverGrid extends MicroFramework{
 
 
     /*
+    * Convert ServerIdent to ID
+    * Used for URL mapping around the application
+    */
+    public function serverIdentToID($ident)
+    {
+      $sql = "SELECT * FROM client_servers WHERE serverIdent='".db::escapechars($ident)."'";
+      $result = db::returnrow($sql);
+      return $result['serverid'];
+    }
+
+    /*
      * Get the list of servers for a particular user
      *
      */
@@ -221,7 +232,7 @@ class serverGrid extends MicroFramework{
         $servercode .= "&dollar;version = shell_exec('".$mylocations['version']."');<br/>";
         $servercode .= "&dollar;uptime = shell_exec('".$mylocations['uptime']."');<br/>";
         $servercode .= "&dollar;loadavg = shell_exec('".$mylocations['loadavg']."');<br/>";
-        
+
         $servercode .= "&dollar;ipaddress = exec('/sbin/ifconfig eth0 |grep \"inet addr\" |awk \"{print &dollar;2}\" |awk -F: \"{print &dollar;2}\"', &dollar;ipoutput);<br/>";
         $servercode .= "&dollar;ipaddress = trim(&dollar;ipoutput[0]);<br/>";
         $servercode .= "&dollar;ipaddress = str_replace('inet addr:','',&dollar;ipaddress);<br/>";
@@ -282,30 +293,30 @@ class serverGrid extends MicroFramework{
             $serverLocation = $_SERVER['SERVER_ADDR'];
         }
         $servercode = "<div class=\"servercode\"><h3>Windows Powershell Code</h3><br/>
-		&dollar;at = Get-Date
-		&dollar;duration = [TimeSpan]::MaxValue
-		&dollar;interval = New-TimeSpan -minutes ".$frequency."
-		&dollar;trigger = New-JobTrigger -Once -At $at -RepetitionDuration $duration -RepetitionInterval $interval
-
-		Unregister-ScheduledJob -Name ServerGrid -Force
-		Register-ScheduledJob -Name ServerGrid -Trigger $trigger -ScriptBlock {
-
-		&dollar;url = 'http://".$serverLocation."/api/updateMyGrid/'
-						&dollar;os = Get-WmiObject Win32_OperatingSystem
-						&dollar;myIdent = '".$serverinfo['serverIdent']."'
-						&dollar;serverId = '".$serverinfo['serverid']."'
-						&dollar;userId = '".$this->usernametoid($_SESSION['username'])."'
-						&dollar;memfree = &dollar;os.FreePhysicalMemory
-						&dollar;hostname = hostname
-						&dollar;version = &dollar;os.Version
-						&dollar;uptime = ((Get-Date) - [System.Management.ManagementDateTimeconverter]::ToDateTime(&dollar;os.LastBootUpTime)).TotalSeconds
-						&dollar;proc =get-counter -Counter '\Processor(_Total)\% Processor Time' -SampleInterval 1 -MaxSamples 1
-						&dollar;loadavg =((&dollar;proc.readings -split ':')[-1])/100
-
-						&dollar;body = 'ident='+&dollar;myIdent+'&serverid='+&dollar;serverId+'&userid='+&dollar;userId+'&memfree=MemFree: '+&dollar;memfree+' kB&hostname='+&dollar;hostname+'&version='+&dollar;version+'&uptime='+&dollar;uptime+'&loadavg='+('{0:N2}' -f &dollar;loadavg)+' 0.00 0.00 0/0 0'
-
-						&dollar;uri = New-Object System.Uri(&dollar;url)
-						Invoke-WebRequest -Uri &dollar;uri.AbsoluteUri -Method Post -Body &dollar;body
+		&dollar;at = Get-Date<br/>
+		&dollar;duration = [TimeSpan]::MaxValue<br/>
+		&dollar;interval = New-TimeSpan -minutes ".$frequency."<br/>
+		&dollar;trigger = New-JobTrigger -Once -At $at -RepetitionDuration $duration -RepetitionInterval $interval<br/>
+    <br/>
+		Unregister-ScheduledJob -Name ServerGrid -Force<br/>
+		Register-ScheduledJob -Name ServerGrid -Trigger $trigger -ScriptBlock {<br/>
+      <br/>
+		&dollar;url = 'http://".$serverLocation."/api/updateMyGrid/'<br/>
+						&dollar;os = Get-WmiObject Win32_OperatingSystem<br/>
+						&dollar;myIdent = '".$serverinfo['serverIdent']."'<br/>
+						&dollar;serverId = '".$serverinfo['serverid']."'<br/>
+						&dollar;userId = '".$this->usernametoid($_SESSION['username'])."'<br/>
+						&dollar;memfree = &dollar;os.FreePhysicalMemory<br/>
+						&dollar;hostname = hostname<br/>
+						&dollar;version = &dollar;os.Version<br/>
+						&dollar;uptime = ((Get-Date) - [System.Management.ManagementDateTimeconverter]::ToDateTime(&dollar;os.LastBootUpTime)).TotalSeconds<br/>
+						&dollar;proc =get-counter -Counter '\Processor(_Total)\% Processor Time' -SampleInterval 1 -MaxSamples 1<br/>
+						&dollar;loadavg =((&dollar;proc.readings -split ':')[-1])/100<br/>
+            <br/>
+						&dollar;body = 'ident='+&dollar;myIdent+'&serverid='+&dollar;serverId+'&userid='+&dollar;userId+'&memfree=MemFree: '+&dollar;memfree+' kB&hostname='+&dollar;hostname+'&version='+&dollar;version+'&uptime='+&dollar;uptime+'&loadavg='+('{0:N2}' -f &dollar;loadavg)+' 0.00 0.00 0/0 0'<br/>
+            <br/>
+						&dollar;uri = New-Object System.Uri(&dollar;url)<br/>
+						Invoke-WebRequest -Uri &dollar;uri.AbsoluteUri -Method Post -Body &dollar;body<br/>
 		}</div>";
         return $servercode;
     }
@@ -461,14 +472,14 @@ class serverGrid extends MicroFramework{
         $result = db::returnrow($sql);
         return $result['serverName'];
     }
-    
+
     /*
      * Check to see if there's been a change in the ip address of the machine for warning message
      */
     public function checkForipAddressChange($serverid)
     {
         $serverinformation = $this->getServerInfo($serverid);
-        
+
         $sql = "SELECT
                     *
                 FROM

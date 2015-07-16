@@ -75,7 +75,7 @@
                     <p>
                         <div class="graphbox">
                             <h4><?php echo $server['serverName']; ?></h4>
-                            <a href="<?php echo "/index.php/servergrid/virtualrack/display/".$server['serverid']; ?>/" class="btn btn-primary"><i class="icon-eye-open icon-white"></i> View System</a>
+                            <a href="<?php echo "/index.php/servergrid/virtualrack/display/".$server['serverIdent']; ?>/" class="btn btn-primary"><i class="icon-eye-open icon-white"></i> View System</a>
                             <div id="graph<?php echo $server['serverid']; ?>">
                                 <div class="placeholder">
                                     <img src="/web/img/serverGridStackAnimationSmall.gif" alt="loading..." title="loading..." />
@@ -91,4 +91,3 @@
 
     </div>
 </div>
-
