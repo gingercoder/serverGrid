@@ -48,8 +48,12 @@
             </p>
             <h3>Debugging</h3>
             <p>
-                When your script runs, a file called &quot;serverGridResponse.txt&quot; will be created with a response code that
+                When your script runs, a file called &quot;serverGridResponse.txt&quot; can be created with a response code that
                 can be used to debug connections if your information does not appear in the ServerGrid system after a couple of minutes.
+            </p>
+            <p>
+              To get the debug information, change your CRON entry to log to a file,  e.g. " */1 * * * * /usr/bin/php serverGrid.php > serverGridResponse.txt"
+              substituting the CRON values to the ones you've generated on this page.
             </p>
             <h3>Requirements</h3>
             <p>
@@ -57,8 +61,16 @@
             </p>
                 <div class="alert alert-info">
                     <p>
-                    If you're on a Debian/Ubuntu system you can run:
+                    Debian/Ubuntu system:<br/>
                     sudo apt-get install php5; sudo apt-get install php5-curl
+                    </p>
+                </div>
+                <div class="alert alert-info">
+                    <p>
+                    RHEL System:<br/>
+                    sudo rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm;
+                    <br/>
+                    sudo yum install php55w
                     </p>
                 </div>
         </div>
@@ -94,13 +106,22 @@
                     ?>
                 </p>
                 <p>
-                    <label>Frequency</label>
+                    <label>Polling Frequency</label>
                     <select name="frequency">
                         <option value="1">Every Minute</option>
                         <option value="5">Every 5 minutes</option>
                         <option value="15">Every 15 minutes</option>
                         <option value="30">Every Half-hour</option>
                         <option value="60">Every Hour</option>
+                    </select>
+                </p>
+                <p>
+                    <label>Monitoring Interface</label>
+                    <select name="iface">
+                        <option value="eth0">eth0</option>
+                        <option value="eth1">eth1</option>
+                        <option value="wlan0">wlan0</option>
+                        <option value="wlan1">wlan1</option>
                     </select>
                 </p>
                 <p>

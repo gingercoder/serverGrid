@@ -59,6 +59,7 @@
                    <option value="Debian">Debian</option>
                    <option value="Fedora">Fedora</option>
                    <option value="Raspian">Raspian</option>
+                   <option value="RHEL">RHEL</option>
                    <option value="Slackware">Slackware</option>
                    <option value="Ubuntu">Ubuntu</option>
                    <option value="Linux">Linux (Other)</option>
@@ -72,7 +73,7 @@
             <p>
                 <button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i> Add Server</button>
             </p>
-            
+
             <input type="hidden" name="x" value="servergrid" />
             <input type="hidden" name="y" value="myservers" />
             <input type="hidden" name="z" value="add" />

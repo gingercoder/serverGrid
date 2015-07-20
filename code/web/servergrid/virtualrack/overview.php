@@ -81,6 +81,11 @@
                                     <img src="/web/img/serverGridStackAnimationSmall.gif" alt="loading..." title="loading..." />
                                 </div>
                             </div>
+                            <div class="progress progress-striped">
+                              <div class="bar"
+                                   style="width: <?php echo $ObjSG->getUsedSpace($server['serverid']);?>%;">
+                              </div>
+                            </div>
                         </div>
                     </p>
                     <?php

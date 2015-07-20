@@ -179,10 +179,11 @@ class serverGrid extends MicroFramework{
      * Function to generate the server code to be installed on the remote system
      * Generates a text-based PHP output
      */
-    public function createServerCode($serverid, $frequency)
+    public function createServerCode($serverid, $frequency, $iface)
     {
         $serverinfo = $this->getServerInfo($serverid);
-
+        $iface = strip_tags($iface);
+        
         if($serverinfo['serverOS'] == "Windows")
         {
             return $this->createWindowsServerCode($serverid, $frequency);
@@ -190,14 +191,14 @@ class serverGrid extends MicroFramework{
         }
 
         $mylocations = $this->fileLocations($serverinfo['serverOS']);
-        return $this->createUnixServerCode($serverinfo, $mylocations, $frequency);
+        return $this->createUnixServerCode($serverinfo, $mylocations, $frequency, $iface);
     }
 
     /*
      * Function to create Unix Server Code
      *
      */
-    public function createUnixServerCode($serverinfo, $mylocations, $frequency)
+    public function createUnixServerCode($serverinfo, $mylocations, $frequency, $iface)
     {
         $myApp = $this->getAppSettings();
         if($myApp['serverName']){
@@ -213,9 +214,9 @@ class serverGrid extends MicroFramework{
                         * Filename: serverGrid.php<br/>
                         * Description:<br/>
                         * ServerGrid<br/>
-                        * Developed by gingerCoder()<br/>
-                        * gingerCoder.com<br/>
-                        * Non-invasive data capture file v1.0.2<br/>
+                        * Developed by TohuMuna<br/>
+                        * tohumuna.com<br/>
+                        * Non-invasive data capture file v1.0.3<br/>
                         */<br/>
                         &dollar;myIdent = \"".$serverinfo['serverIdent']."\";<br/>
                         &dollar;serverid = \"".$serverinfo['serverid']."\";<br/>
@@ -232,15 +233,14 @@ class serverGrid extends MicroFramework{
         $servercode .= "&dollar;version = shell_exec('".$mylocations['version']."');<br/>";
         $servercode .= "&dollar;uptime = shell_exec('".$mylocations['uptime']."');<br/>";
         $servercode .= "&dollar;loadavg = shell_exec('".$mylocations['loadavg']."');<br/>";
-
-        $servercode .= "&dollar;ipaddress = exec('/sbin/ifconfig eth0 |grep \"inet addr\" |awk \"{print &dollar;2}\" |awk -F: \"{print &dollar;2}\"', &dollar;ipoutput);<br/>";
+        $servercode .= "&dollar;ipaddress = exec('/sbin/ifconfig ".$iface." |grep \"inet addr\" |awk \"{print &dollar;2}\" |awk -F: \"{print &dollar;2}\"', &dollar;ipoutput);<br/>";
         $servercode .= "&dollar;ipaddress = trim(&dollar;ipoutput[0]);<br/>";
         $servercode .= "&dollar;ipaddress = str_replace('inet addr:','',&dollar;ipaddress);<br/>";
         $servercode .= "&dollar;currentipaddress = explode(' ', &dollar;ipaddress);<br/>";
         $servercode .= "&dollar;spacefree = &dollar;percentfree;<br/>";
 
         $servercode .="
-                        &dollar;url = 'http://".$serverLocation."/api/updateMyGrid/';<br/>
+                        &dollar;url = 'http://".$serverLocation."/api/updateMyGrid.php';<br/>
                         &dollar;fields = array(<br/>
                                                 'memfree' => urlencode(&dollar;memfree),<br/>
                                                 'hostname' => urlencode(&dollar;hostname),<br/>
@@ -301,7 +301,7 @@ class serverGrid extends MicroFramework{
 		Unregister-ScheduledJob -Name ServerGrid -Force<br/>
 		Register-ScheduledJob -Name ServerGrid -Trigger $trigger -ScriptBlock {<br/>
       <br/>
-		&dollar;url = 'http://".$serverLocation."/api/updateMyGrid/'<br/>
+		&dollar;url = 'http://".$serverLocation."/api/updateMyGrid.php'<br/>
 						&dollar;os = Get-WmiObject Win32_OperatingSystem<br/>
 						&dollar;myIdent = '".$serverinfo['serverIdent']."'<br/>
 						&dollar;serverId = '".$serverinfo['serverid']."'<br/>
@@ -342,6 +342,16 @@ class serverGrid extends MicroFramework{
                 break;
 
             case "Ubuntu":
+                $returnArray = array(
+                    'memory'=>'cat /proc/meminfo |grep MemFree',
+                    'hostname'=>'cat /etc/hostname',
+                    'version'=>'cat /proc/version',
+                    'loadavg'=>'cat /proc/loadavg',
+                    'uptime'=>'cat /proc/uptime'
+                );
+                break;
+
+            case "RHEL":
                 $returnArray = array(
                     'memory'=>'cat /proc/meminfo |grep MemFree',
                     'hostname'=>'cat /etc/hostname',
@@ -471,6 +481,17 @@ class serverGrid extends MicroFramework{
         $sql = "SELECT serverName FROM client_servers WHERE serverid='".db::escapechars($serverid)."'";
         $result = db::returnrow($sql);
         return $result['serverName'];
+    }
+
+    /*
+    * Get the ID of the server from the name
+    *
+    */
+    public function getServerIDFromName($servername)
+    {
+      $sql = "SELECT serverid FROM client_servers WHERE serverName='".db::escapechars($servername)."'";
+      $result = db::returnrow($sql);
+      return $result['serverid'];
     }
 
     /*
