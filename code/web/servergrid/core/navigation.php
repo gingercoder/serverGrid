@@ -31,7 +31,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Grid <b class="caret"></b></a>
 
                 <ul class="dropdown-menu">
-                    <li><a href="/index.php/servergrid/myservers/add/"><strong>Add Server</strong></a></li>
+                    <li><a href="/index.php/servergrid/myservers/add/"><i class="icon-tasks"></i> <strong>Add Server</strong></a></li>
                     <li class="divider"></li>
                     <?php
                     // for each server provide a link to undertake tasks

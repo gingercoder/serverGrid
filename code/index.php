@@ -16,15 +16,16 @@
  *              ServerGrid is a client and server technology allowing the remote monitoring
  *              of your server fleet. It provides a statistical overview of the state of
  *              your servers past and present.
+ *              Now provided with updates and feature roadmap from Tohu Muna Software Ltd.
  *
  * License:         GNU GPLv3
  * Published:       May 2013
- * This Release:    October 2013
+ * This Release:    July 2015
  */
 
       // Error Reporting Mode
-        error_reporting(0);
-        ini_set('display_errors', 'Off');
+      error_reporting(0);
+      ini_set('display_errors', 'Off');
 
       // Create the Session and control page request information
 	    session_start();

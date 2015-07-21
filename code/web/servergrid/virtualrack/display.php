@@ -138,7 +138,7 @@
     </div>
     <?php
     // Display the system log for the last 24 hours
-    $serverLog = $ObjSG->getServerStats($ObjSG->usernametoid($_SESSION['username']), $ObjSG->serverIdentToID($d), $start, 30);
+    $serverLog = $ObjSG->getServerStats($ObjSG->usernametoid($_SESSION['username']), $ObjSG->serverIdentToID($d), $start, 15);
     foreach($serverLog as $log){
     ?>
         <div class="row-fluid">

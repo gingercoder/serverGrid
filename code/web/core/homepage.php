@@ -49,14 +49,16 @@
             <h2>
                 ServerGrid
             </h2>
-            <p>
-                Welcome online to ServerGrid monitoring system, <?php echo $_SESSION['username']; ?>.
-            </p>
-            <p>
-                Add your servers to your grid, then copy the generated file to your system. Use the cron job ServerGrid creates for you
-                to add monitoring to your systems. It's as simple as that - no mess, no fuss, no additional user accounts, no supplementary
-                third-party background-programs to lurk in your memory space!
-            </p>
+            <div class="well well-large darktext">
+              <p>
+                  Welcome online to ServerGrid monitoring system, <?php echo $_SESSION['username']; ?>.
+              </p>
+              <p>
+                  Add your servers to your grid, then copy the generated file to your system. Use the cron job ServerGrid creates for you
+                  to add monitoring to your systems. It's as simple as that - no mess, no fuss, no additional user accounts, no supplementary
+                  third-party background-programs to lurk in your memory space!
+              </p>
+          </div>
         </div>
 
         <div class="span4">

@@ -42,6 +42,7 @@ class serverGrid extends MicroFramework{
                 WHERE
                     userid='".db::escapechars($userid)."'
                 ORDER BY
+                    rackposition ASC,
                     serverName ASC";
         $serverlist = db::returnallrows($sql);
         return $serverlist;
@@ -54,6 +55,11 @@ class serverGrid extends MicroFramework{
     public function addServer($userid, $serverName, $serverOS, $ipaddress)
     {
         $serverident = md5(db::escapechars($serverName).db::escapechars($serverOS).date(YmdHis));
+        // set rack position
+        $rackposition = $this->getNumberOfServers($userid);
+        if(!$rackposition){
+          $rackposition = 0;
+        }
 
         $sql = "INSERT INTO
                     client_servers
@@ -63,6 +69,7 @@ class serverGrid extends MicroFramework{
                     serverName='".db::escapechars($serverName)."',
                     serverOS='".db::escapechars($serverOS)."',
                     ipaddress = '".db::escapechars($ipaddress)."',
+                    rackposition = '".$rackposition."',
                     dateCreated=NOW(),
                     dateModified=NOW()";
         $insert = db::execute($sql);
@@ -183,7 +190,7 @@ class serverGrid extends MicroFramework{
     {
         $serverinfo = $this->getServerInfo($serverid);
         $iface = strip_tags($iface);
-        
+
         if($serverinfo['serverOS'] == "Windows")
         {
             return $this->createWindowsServerCode($serverid, $frequency);
@@ -569,6 +576,63 @@ class serverGrid extends MicroFramework{
         return $result['freedisk'];
     }
 
+    /*
+    * Move a server in the rack up or down
+    */
+    public function moveServerPosition($serverIdent,$whichWay)
+    {
+      // Get the current and the new position
+      $serverid = $this->serverIdentToID($serverIdent);
+      $thisServer = $this->getServerPosition($serverid);
+      if($whichWay == "up")
+      {
+        $newposition = $thisServer - 1;
+        // If it's gone too far somehow
+        if($newposition < 0){
+          $newposition = 0;
+        }
+      }
+      else
+      {
+        $newposition = $thisServer + 1;
+      }
+
+      // Swap with neighbouring item
+      $sql = "UPDATE client_servers SET rackposition = '".$thisServer."' WHERE rackposition = '".$newposition."' LIMIT 1";
+      db::execute($sql);
+
+      // Move the server to the right location
+      $sql = "UPDATE client_servers SET rackposition='".db::escapechars($newposition)."' WHERE serverid='".db::escapechars($serverid)."' LIMIT 1";
+      $updatePosition = db::execute($sql);
+      if($updatePosition)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+    /*
+    * Get the current rack position for a server
+    */
+    public function getServerPosition($serverid)
+    {
+      $sql = "SELECT rackposition FROM client_servers WHERE serverid='".db::escapechars($serverid)."'";
+      $result = db::returnrow($sql);
+      return $result['rackposition'];
+    }
+
+    /*
+    * Get number of servers a user has in their rack
+    */
+    public function getNumberOfServers($userid)
+    {
+      $sql = "SELECT count(*) FROM client_servers WHERE userid='".db::escapechars($userid)."'";
+      $result = db::returnrow($sql);
+      $numservers = $result['count(*)'];
+      return $numservers;
+    }
 }
 
 ?>

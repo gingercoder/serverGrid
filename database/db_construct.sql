@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `client_servers` (
   `serverName` varchar(255) NOT NULL,
   `serverOS` varchar(50) NOT NULL,
   `ipaddress` varchar(15) DEFAULT NULL,
+  `rackposition` int(11) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateModified` datetime NOT NULL,
   PRIMARY KEY (`serverid`),

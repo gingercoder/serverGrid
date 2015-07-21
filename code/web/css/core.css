@@ -1,9 +1,9 @@
-/* 
+/*
 * Core MicroFramework Stylesheet
 *
 */
 
-root { 
+root {
     display: block;
 }
 body{
@@ -117,4 +117,8 @@ footer{
 }
 .warningheading{
     background-color: #cc0000;
+}
+
+.darktext{
+  color: #333;
 }

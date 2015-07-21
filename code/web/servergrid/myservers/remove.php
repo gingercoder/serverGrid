@@ -34,14 +34,16 @@
     </div>
     <div class="row-fluid">
         <div class="span4">
-
-            <h2>
-                Remove Server
-            </h2>
-            <p>
-                Before you remove a server, remember to delete your crontab entry in your system and remove your serverGrid.php file
-                from your system.
-            </p>
+            <br/>
+            <div class="well well-large darktext">
+              <h2>
+                  Remove Server
+              </h2>
+              <p>
+                  Before you remove a server, remember to delete your crontab entry in your system and remove your serverGrid.php file
+                  from your system.
+              </p>
+            </div>
         </div>
 
         <div class="span8">
@@ -59,7 +61,7 @@
                 <?php
                 foreach($serverList as $server){
                     echo "<div class=\"graphbox\"><h3>".$server['serverName']."</h3><p>".$server['serverIdent']."<br/>".$server['serverOS']."</p>";
-                        if((!$d) || ($d == $server['serverid'])){
+                        if((!$d) || ($d == $server['serverIdent'])){
                         ?>
                         <form name="removeserver" action="/index.php" method="post">
                             <button class="btn btn-danger" type="submit"><i class="icon-trash icon-white"></i> Remove <?php echo $server['serverName']; ?></button>
