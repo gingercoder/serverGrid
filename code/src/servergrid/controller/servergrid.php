@@ -361,7 +361,7 @@ class serverGrid extends MicroFramework{
             case "RHEL":
                 $returnArray = array(
                     'memory'=>'cat /proc/meminfo |grep MemFree',
-                    'hostname'=>'cat /etc/hostname',
+                    'hostname'=>'uname -n',
                     'version'=>'cat /proc/version',
                     'loadavg'=>'cat /proc/loadavg',
                     'uptime'=>'cat /proc/uptime'
