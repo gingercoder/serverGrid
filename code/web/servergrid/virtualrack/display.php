@@ -175,10 +175,17 @@
             </div>
             <div class="span2">
                 <?php
+                // Work out server uptime
                 $uptimearr = explode(' ', $log['uptime']);
                 $uptime_arr = explode('.',(($uptimearr[0]/60)/60));
                 $uptimeleft = $uptime_arr[0];
                 $uptimeright = ceil(60*($uptime_arr[1]*0.1));
+                if($uptimeleft >=24)
+                {
+                  $days = ceil($uptimeleft / 24);
+                  $hours = ceil($uptimeleft % 24);
+                  $uptimeleft = $days."d ".$hours;
+                }
                 $uptime = $uptimeleft."h ".substr($uptimeright,0,2)."m";
                 echo $uptime;
                 ?>

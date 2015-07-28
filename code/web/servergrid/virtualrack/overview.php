@@ -104,6 +104,24 @@
                     // Display graph output overview
                     // Get specific list of info for this server
                     $spaceUsed = $ObjSG->getUsedSpace($server['serverid']);
+                    $serverLog = $ObjSG->getServerStats($ObjSG->usernametoid($_SESSION['username']), $server['serverid'], 0, 1);
+                    foreach($serverLog as $log)
+                    {
+                      // Work out server uptime
+                      $uptimearr = explode(' ', $log['uptime']);
+                      $uptime_arr = explode('.',(($uptimearr[0]/60)/60));
+                      $uptimeleft = $uptime_arr[0];
+                      $uptimeright = ceil(60*($uptime_arr[1]*0.1));
+                      if($uptimeleft >=24)
+                      {
+                        $days = ceil($uptimeleft / 24);
+                        $hours = ceil($uptimeleft % 24);
+                        $uptimeleft = $days."d ".$hours;
+                      }
+                      $uptime = $uptimeleft."h ".substr($uptimeright,0,2)."m";
+
+                      $lastUpdated = $log['dateCreated'];
+                    }
                     ?>
                     <p>
                         <div class="graphbox">
@@ -122,7 +140,7 @@
                                 ?>
                               </div>
                               <h4><?php echo $server['serverName']; ?></h4>
-                            <a href="<?php echo "/index.php/servergrid/virtualrack/display/".$server['serverIdent']; ?>/" class="btn btn-primary"><i class="icon-eye-open icon-white"></i> View System</a>
+                              <a href="<?php echo "/index.php/servergrid/virtualrack/display/".$server['serverIdent']; ?>/" class="btn btn-primary"><i class="icon-eye-open icon-white"></i> View System</a>
                             <div id="graph<?php echo $server['serverid']; ?>">
                                 <div class="placeholder">
                                     <img src="/web/img/serverGridStackAnimationSmall.gif" alt="loading..." title="loading..." />
@@ -149,6 +167,9 @@
                                    style="width: <?php echo $spaceUsed; ?>%;" title="<?php echo $spaceUsed; ?>% Disk Space Used">
                               </div>
                             </div>
+                            <center>
+                              <div class="label label-info"><?php echo "Last update: ".$lastUpdated. " - Up ".$uptime;?></div>
+                            </center>
                         </div>
                     </p>
                     <?php
