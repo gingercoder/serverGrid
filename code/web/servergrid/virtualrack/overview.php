@@ -50,6 +50,7 @@
         <div class="span4">
           <br/>
           <div class="well well-large darktext">
+            <button type="button" class="close" data-dismiss="alert">x</button>
             <h2>
                 Virtual Rack
             </h2>
@@ -64,6 +65,35 @@
                 there is an issue with your network connection from your box.
             </p>
           </div>
+          <?php
+              $numberOfAlerts = 0;
+              $alertOutput = "";
+              foreach($serverList as $server){
+                  $serverAlert = $ObjSG->checkServerState($server['serverid']);
+                  if($serverAlert){
+                      $alertOutput .= $serverAlert;
+                      $numberOfAlerts++;
+                  }
+
+                  $checkip = $ObjSG->checkForIPAddressChange($server['serverid']);
+                  if($checkip !=""){
+                      $alertOutput .= $checkip;
+                      $numberOfAlerts++;
+                  }
+              }
+              if($numberOfAlerts>0){
+                  if($numberOfAlerts>1){
+                      echo "<span class=\"label label-warning\"><i class=\"icon-warning-sign\"></i> There are ".$numberOfAlerts." alerts requiring your attention</span>";
+                  }
+                  else{
+                      echo "<span class=\"label label-warning\"><i class=\"icon-warning-sign\"></i> There is ".$numberOfAlerts." alert requiring your attention</span>";
+                  }
+              }
+              else{
+                  echo "<span class=\"label label-success\"><i class=\"icon-ok\"></i> There are no alerts requiring attention</span>";
+              }
+              echo $alertOutput;
+          ?>
         </div>
 
         <div class="span8">

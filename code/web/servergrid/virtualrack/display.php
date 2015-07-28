@@ -42,36 +42,39 @@
             <p>
                 <a href="/index.php/servergrid/myservers/edit/<?php echo $serverInfo['serverIdent'];?>" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit Server</a>
             </p>
-            <p>
-                Running:
-                <?php echo $serverInfo['serverOS']; ?>
-            </p>
-            <p>
-                IDENT:
-                <?php echo $serverInfo['serverIdent']; ?>
-            </p>
-            <p>
-                Added:
-                <?php echo $serverInfo['dateCreated']; ?>
-            </p>
-            <p>
-                IP Address:
-                <?php echo $serverInfo['ipaddress']; ?>
-            </p>
-            <?php
-                echo $ObjSG->checkForIPAddressChange($serverInfo['serverid']);
-            ?>
-            <?php
-                if($serverInfo['ipaddress']){
-                    // if ip address exists, try and do an AJAX call to check the time on a click event
-                    echo "<button name=\"clickForPing\" id=\"clickForPing\" class=\"btn btn-success\" type=\"submit\"><i class=\"icon-refresh icon-white\"></i> Check Port 80 response</button>";
-                    echo "<br/><span id=\"clickForPingResult\"></span>";
-                }
-            else{
-                echo "No IP set, can't try a ping";
-            }
 
-            ?>
+            <div class="well well-large darktext">
+                <p>
+                    Running:
+                    <?php echo $serverInfo['serverOS']; ?>
+                </p>
+                <p>
+                    IDENT:
+                    <?php echo $serverInfo['serverIdent']; ?>
+                </p>
+                <p>
+                    Added:
+                    <?php echo $serverInfo['dateCreated']; ?>
+                </p>
+                <p>
+                    IP Address:
+                    <?php echo $serverInfo['ipaddress']; ?>
+                </p>
+                <?php
+                    echo $ObjSG->checkForIPAddressChange($serverInfo['serverid']);
+                ?>
+                <?php
+                    if($serverInfo['ipaddress']){
+                        // if ip address exists, try and do an AJAX call to check the time on a click event
+                        echo "<button name=\"clickForPing\" id=\"clickForPing\" class=\"btn btn-success\" type=\"submit\"><i class=\"icon-refresh icon-white\"></i> Check Port 80 response</button>";
+                        echo "<br/><span id=\"clickForPingResult\"></span>";
+                    }
+                else{
+                    echo "No IP set, can't try a ping";
+                }
+
+                ?>
+            </div>
             <p align="center">
                 <div class="graphbox">
                     <div id="freespace_graph_div"></div>

@@ -120,16 +120,17 @@
             </h2>
             <?php
                 $numberOfAlerts = 0;
+                $alertOutput = "";
                 foreach($serverList as $server){
                     $serverAlert = $ObjSG->checkServerState($server['serverid']);
                     if($serverAlert){
-                        echo $serverAlert;
+                        $alertOutput .= $serverAlert;
                         $numberOfAlerts++;
                     }
 
                     $checkip = $ObjSG->checkForIPAddressChange($server['serverid']);
                     if($checkip !=""){
-                        echo $checkip;
+                        $alertOutput .= $checkip;
                         $numberOfAlerts++;
                     }
                 }
@@ -142,8 +143,9 @@
                     }
                 }
                 else{
-                    echo "<span class=\"label label-info\"><i class=\"icon-ok\"></i> There are no alerts requiring attention</span>";
+                    echo "<span class=\"label label-success\"><i class=\"icon-ok\"></i> There are no alerts requiring attention</span>";
                 }
+                echo $alertOutput;
             ?>
         </div>
 
