@@ -25,8 +25,8 @@
     require_once('../src/core/settings/loadAppSettings.php');
 
 
-    $teamCityServer = "gaffer";
-    $userAccountToUse = "sysadmin";
+    $teamCityServer = "TC_SERVER_NAME";     // <--------------------- Change this to the server name or ip of your TC Server
+    $userAccountToUse = "sysadmin";         // <--------------------- Change this to the primary account holder you want to monitor using
 
 ?>
 
