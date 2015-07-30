@@ -1,0 +1,40 @@
+/*
+* Additional Wallboard Style sheet overrides
+*/
+
+
+
+.warningDiv{
+  display: block;
+  border-top: 8px solid #990000;
+  background: rgba(166,0,0,0.4);
+  color: #ffffff;
+  padding: 20px;
+}
+.okdiv{
+  border-top: 8px solid #009900;
+  padding: 20px;
+}
+
+.noDisplay{
+  visibility: hidden;
+  display: none;
+}
+body{
+  background-image: url('/web/img/stripBgnd.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.row-fluid{
+  background: rgba(0,0,0,0.2);
+}
+
+.teamCityDateTime{
+  visibility: hidden;
+}
+.teamCityIcon{
+  visibility: hidden;
+}

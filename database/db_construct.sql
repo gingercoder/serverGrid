@@ -86,6 +86,7 @@ INSERT INTO `framework_settings` (`settingName`, `settingValue`) VALUES
 ('outputType', 'php'),
 ('passwordSeed', '2d5377a9e28871fefc8c5ee77e06f818'),
 ('firewall', 'off'),
+('wallboard', 'off'),
 ('emailSentFrom', 'servergrid@tohumuna.com'),
 ('emailFooter', 'Automatically generated email from ServerGrid inteded for recipient only');
 -- --------------------------------------------------------
