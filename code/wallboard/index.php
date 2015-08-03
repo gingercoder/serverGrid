@@ -69,6 +69,7 @@
       $statusFile = file_get_contents("http://".$teamCityServer."/externalStatus.html");
       $numberFailures = 0;
       $numberFailures = substr_count($statusFile, 'buildFailed.png');
+      $numberFailures += substr_count($statusFile, 'error.png');
       ?>
 
       <div class="container-fluid">
